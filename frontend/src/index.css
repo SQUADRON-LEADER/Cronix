@@ -1,0 +1,253 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Neumorphic Design System (Soft UI) Variables */
+    --cronix-bg-primary:    #E0E5EC;
+    --cronix-bg-secondary:  #E0E5EC;
+    --cronix-card:          #E0E5EC;
+    --cronix-accent:        #6C63FF;
+    --cronix-accent-hover:  #8B84FF;
+    --cronix-success:       #38B2AC;
+    --cronix-text:          #3D4852;
+    --cronix-text-secondary: #6B7280;
+    --cronix-text-muted:    #8FA0C7;
+    --cronix-border:        transparent;
+
+    /* shadcn base values mapped to neumorphic clay */
+    --background:           0 0% 88%; /* #E0E5EC */
+    --foreground:           210 15% 28%; /* #3D4852 */
+    --card:                 0 0% 88%;
+    --card-foreground:      210 15% 28%;
+    --popover:              0 0% 88%;
+    --popover-foreground:   210 15% 28%;
+    --primary:              244 100% 69%; /* #6C63FF */
+    --primary-foreground:   0 0% 100%;
+    --secondary:            0 0% 88%;
+    --secondary-foreground: 210 15% 28%;
+    --muted:                0 0% 88%;
+    --muted-foreground:     218 11% 46%; /* #6B7280 */
+    --accent:               244 100% 69%;
+    --accent-foreground:    0 0% 100%;
+    --destructive:          0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border:               transparent;
+    --input:                transparent;
+    --ring:                 244 100% 69%;
+    --radius:               20px;
+  }
+
+  * {
+    border-color: transparent;
+  }
+
+  body {
+    font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: var(--cronix-bg-primary);
+    color: var(--cronix-text);
+    @apply antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom Neumorphic Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--cronix-bg-primary);
+    box-shadow: inset 2px 2px 5px rgba(163, 177, 198, 0.4), inset -2px -2px 5px rgba(255, 255, 255, 0.4);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 9999px;
+    box-shadow: 2px 2px 5px rgba(163, 177, 198, 0.3), -2px -2px 5px rgba(255, 255, 255, 0.3);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #B9C4D1;
+  }
+}
+
+@layer components {
+
+  /* ── Cards / Containers (Extruded Resting) ─────────────── */
+  .glass-card {
+    background-color: var(--cronix-bg-primary);
+    border-radius: 32px;
+    border: none;
+    box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+  }
+
+  .glass-hover {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  }
+
+  .glass-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 12px 12px 20px rgba(163, 177, 198, 0.7), -12px -12px 20px rgba(255, 255, 255, 0.6);
+  }
+
+  /* ── Pressed / Inset Containers ────────────────────────── */
+  .inset-well {
+    background-color: var(--cronix-bg-primary);
+    border-radius: 16px;
+    box-shadow: inset 6px 6px 10px rgba(163, 177, 198, 0.6), inset -6px -6px 10px rgba(255, 255, 255, 0.5);
+  }
+
+  .inset-well-deep {
+    background-color: var(--cronix-bg-primary);
+    border-radius: 20px;
+    box-shadow: inset 10px 10px 20px rgba(163, 177, 198, 0.7), inset -10px -10px 20px rgba(255, 255, 255, 0.6);
+  }
+
+  /* ── Interactive Elements / Buttons ────────────────────── */
+  .btn-primary {
+    @apply h-11 px-6 font-semibold rounded-2xl transition-all duration-300 ease-out flex items-center justify-center gap-2;
+    background-color: var(--cronix-accent);
+    color: #FFFFFF;
+    box-shadow: 5px 5px 10px rgba(108, 99, 255, 0.3), -5px -5px 10px rgba(255, 255, 255, 0.5);
+    outline: none;
+  }
+  
+  .btn-primary:hover:not(:disabled) {
+    background-color: var(--cronix-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 7px 7px 14px rgba(108, 99, 255, 0.4), -7px -7px 14px rgba(255, 255, 255, 0.6);
+  }
+
+  .btn-primary:active:not(:disabled) {
+    transform: translateY(0.5px);
+    box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.25), inset -4px -4px 8px rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-secondary {
+    @apply h-11 px-6 font-semibold rounded-2xl transition-all duration-300 ease-out flex items-center justify-center gap-2;
+    background-color: var(--cronix-bg-primary);
+    color: var(--cronix-text);
+    box-shadow: 5px 5px 10px rgba(163, 177, 198, 0.6), -5px -5px 10px rgba(255, 255, 255, 0.5);
+    outline: none;
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 7px 7px 14px rgba(163, 177, 198, 0.7), -7px -7px 14px rgba(255, 255, 255, 0.6);
+  }
+
+  .btn-secondary:active:not(:disabled) {
+    transform: translateY(0.5px);
+    box-shadow: inset 4px 4px 8px rgba(163, 177, 198, 0.6), inset -4px -4px 8px rgba(255, 255, 255, 0.5);
+  }
+
+  .btn-secondary.active {
+    box-shadow: inset 4px 4px 8px rgba(163, 177, 198, 0.6), inset -4px -4px 8px rgba(255, 255, 255, 0.5);
+  }
+
+  .btn-ghost {
+    @apply h-10 px-4 font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2;
+    color: var(--cronix-text-secondary);
+  }
+  .btn-ghost:hover {
+    background-color: rgba(163, 177, 198, 0.15);
+    color: var(--cronix-text);
+  }
+
+  /* ── Sidebar Navigation ───────────────────────────────── */
+  .nav-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-300 ease-out relative font-medium mb-1.5;
+    color: var(--cronix-text-secondary);
+  }
+  .nav-item:hover {
+    color: var(--cronix-text);
+    box-shadow: 4px 4px 8px rgba(163, 177, 198, 0.4), -4px -4px 8px rgba(255, 255, 255, 0.4);
+  }
+  .nav-item.active {
+    color: var(--cronix-accent);
+    box-shadow: inset 4px 4px 8px rgba(163, 177, 198, 0.5), inset -4px -4px 8px rgba(255, 255, 255, 0.5);
+  }
+
+  /* ── Inputs ───────────────────────────────────────────── */
+  .input-field {
+    @apply w-full px-4 py-3 rounded-2xl transition-all duration-300 ease-out text-sm;
+    background-color: var(--cronix-bg-primary);
+    color: var(--cronix-text);
+    box-shadow: inset 5px 5px 10px rgba(163, 177, 198, 0.6), inset -5px -5px 10px rgba(255, 255, 255, 0.5);
+    border: none;
+  }
+  .input-field::placeholder {
+    color: var(--cronix-text-muted);
+  }
+  .input-field:focus {
+    outline: none;
+    box-shadow: inset 7px 7px 14px rgba(163, 177, 198, 0.7), inset -7px -7px 14px rgba(255, 255, 255, 0.6);
+    @apply ring-2 ring-[#6C63FF] ring-offset-2;
+    ring-offset-color: var(--cronix-bg-primary);
+  }
+
+  /* ── Status badges ────────────────────────────────────── */
+  .status-badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold;
+    box-shadow: inset 2px 2px 4px rgba(163, 177, 198, 0.5), inset -2px -2px 4px rgba(255, 255, 255, 0.4);
+  }
+  .status-badge.success  { color: var(--cronix-success); }
+  .status-badge.warning  { color: #D97706; }
+  .status-badge.error    { color: #DC2626; }
+  .status-badge.info     { color: #2563EB; }
+  .status-badge.neutral  { color: var(--cronix-text-secondary); }
+
+  /* ── Tables ───────────────────────────────────────────── */
+  .data-table {
+    @apply w-full border-collapse;
+  }
+  .data-table th {
+    @apply text-left text-xs font-bold uppercase tracking-wider px-4 py-3;
+    color: var(--cronix-text-secondary);
+    border-bottom: 2px solid rgba(163, 177, 198, 0.4);
+  }
+  .data-table td {
+    @apply px-4 py-4 text-sm;
+    color: var(--cronix-text);
+    border-bottom: 1px solid rgba(163, 177, 198, 0.2);
+  }
+  .data-table tbody tr {
+    transition: background-color 0.2s ease;
+  }
+  .data-table tbody tr:hover {
+    background-color: rgba(163, 177, 198, 0.08);
+  }
+
+  /* ── Layout & Typography ───────────────────────────────── */
+  .page-container {
+    @apply p-8 md:p-12 max-w-7xl mx-auto;
+  }
+  .page-header {
+    @apply mb-10;
+  }
+  .page-title {
+    @apply text-3xl md:text-4xl font-extrabold tracking-tight mb-2;
+    color: var(--cronix-text);
+  }
+  .page-description {
+    color: var(--cronix-text-secondary);
+    font-size: 0.95rem;
+  }
+
+  .metric-card {
+    @apply glass-card p-6 rounded-[32px] glass-hover;
+  }
+}

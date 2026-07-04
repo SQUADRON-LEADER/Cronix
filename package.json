@@ -1,0 +1,14 @@
+{
+  "name": "cronix",
+  "version": "1.0.0",
+  "description": "Cronix - Distributed Job Scheduler monorepo dev runner",
+  "scripts": {
+    "dev": "concurrently --names \"BACKEND,FRONTEND\" --prefix-colors \"bgBlue.bold,bgGreen.bold\" \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && mvnw.cmd spring-boot:run -Dspring-boot.run.jvmArguments=\"--add-opens java.base/java.time=ALL-UNNAMED\"",
+    "install:frontend": "cd frontend && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
