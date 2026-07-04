@@ -1,17 +1,15 @@
 # Cronix Distributed Job Scheduler
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Java-23-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 23" />
-  <img src="https://img.shields.io/badge/Spring_Boot-3.3.1-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white" alt="Spring Boot 3.3.1" />
-  <img src="https://img.shields.io/badge/React-18.3.1-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React 18.3.1" />
-  <img src="https://img.shields.io/badge/TypeScript-5.5-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript 5.5" />
-  <img src="https://img.shields.io/badge/PostgreSQL-16-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL 16" />
-  <img src="https://img.shields.io/badge/Redis-7-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis 7" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS 3.4" />
-  <img src="https://img.shields.io/badge/Vite-5.4-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite 5.4" />
-  <img src="https://img.shields.io/badge/Docker-Container-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker Setup" />
-  <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="License MIT" />
-</p>
+[![Java 23](https://img.shields.io/badge/Java-23-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](#)
+[![Spring Boot 3.3.1](https://img.shields.io/badge/Spring_Boot-3.3.1-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)](#)
+[![React 18.3.1](https://img.shields.io/badge/React-18.3.1-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](#)
+[![TypeScript 5.5](https://img.shields.io/badge/TypeScript-5.5-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](#)
+[![PostgreSQL 16](https://img.shields.io/badge/PostgreSQL-16-316192?style=for-the-badge&logo=postgresql&logoColor=white)](#)
+[![Redis 7](https://img.shields.io/badge/Redis-7-DC382D?style=for-the-badge&logo=redis&logoColor=white)](#)
+[![Tailwind CSS 3.4](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](#)
+[![Vite 5.4](https://img.shields.io/badge/Vite-5.4-646CFF?style=for-the-badge&logo=vite&logoColor=white)](#)
+[![Docker Container](https://img.shields.io/badge/Docker-Container-2496ED?style=for-the-badge&logo=docker&logoColor=white)](#)
+[![License MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
 Cronix is an enterprise-grade, distributed job scheduling and queue orchestration platform. It is engineered for operations teams and developers who require highly reliable background execution, per-queue concurrency throttling, fine-grained retry topologies, and real-time operational visibility.
 
@@ -76,20 +74,20 @@ Cronix is built using **Hexagonal and Clean Architecture** patterns. This design
 
 ### Module Responsibilities
 
-1.  **Domain Layer** ([com.cronix.backend.domain](file:///c:/Users/aayus/Desktop/Cronix/backend/src/main/java/com/cronix/backend/domain)):
+1.  **Domain Layer** ([com.cronix.backend.domain](backend/src/main/java/com/cronix/backend/domain)):
     *   Contains pure business entities (e.g., `Job`, `Queue`, `Worker`, `ScheduledJob`).
     *   Maintains business validation rules.
     *   Has zero dependencies on external frameworks (e.g., Hibernate annotations or Spring annotations) to keep the core scheduler rules generic and testable.
-2.  **Application Layer** ([com.cronix.backend.application](file:///c:/Users/aayus/Desktop/Cronix/backend/src/main/java/com/cronix/backend/application)):
+2.  **Application Layer** ([com.cronix.backend.application](backend/src/main/java/com/cronix/backend/application)):
     *   Defines use cases and orchestrates service pipelines.
     *   Contains transactional flow coordinators (e.g., `JobService`, `QueueService`, `RetryEngine`).
     *   Resolves retry logic and schedules recurring jobs.
-3.  **Infrastructure Layer** ([com.cronix.backend.infrastructure](file:///c:/Users/aayus/Desktop/Cronix/backend/src/main/java/com/cronix/backend/infrastructure)):
+3.  **Infrastructure Layer** ([com.cronix.backend.infrastructure](backend/src/main/java/com/cronix/backend/infrastructure)):
     *   Integrates frameworks with core business logic.
     *   Handles database persistence via Spring Data JPA mappings to PostgreSQL.
     *   Implements caching and locks using Redis.
     *   Runs the background worker polling loops (`WorkerPoller`) and task executors.
-4.  **Presentation Layer** ([com.cronix.backend.presentation](file:///c:/Users/aayus/Desktop/Cronix/backend/src/main/java/com/cronix/backend/presentation)):
+4.  **Presentation Layer** ([com.cronix.backend.presentation](backend/src/main/java/com/cronix/backend/presentation)):
     *   Exposes endpoints to external clients.
     *   Contains REST controllers, WebSocket brokers, request validation rules, and the `GlobalExceptionHandler` to translate backend exceptions into structured JSON responses.
 
@@ -246,7 +244,7 @@ erDiagram
 
 ### Table Details & Indexes
 
-The complete SQL schema definition is maintained in [database/schema.sql](file:///c:/Users/aayus/Desktop/Cronix/database/schema.sql). The database features specialized indices to maximize throughput under high concurrent request loads:
+The complete SQL schema definition is maintained in [database/schema.sql](database/schema.sql). The database features specialized indices to maximize throughput under high concurrent request loads:
 
 *   `idx_jobs_status_queue_scheduled`: Crucial for polling. Indexes `(status, queue_id, scheduled_at)` to instantly fetch jobs matching execution bounds.
 *   `idx_workers_last_heartbeat`: Tracks worker health and allows background cleanup routines to detect crashed nodes.
@@ -256,7 +254,7 @@ The complete SQL schema definition is maintained in [database/schema.sql](file:/
 
 ## Distributed Claiming & Concurrency Engine
 
-To prevent race conditions where multiple worker processes grab the same queue item, Cronix relies on PostgreSQL's row locking features (`FOR UPDATE SKIP LOCKED`). 
+To prevent race conditions where multiple worker processes grab the same queue item, Cronix relies on PostgreSQL's row locking features (`FOR UPDATE SKIP LOCKED`).
 
 By querying only pending jobs and skipping locked ones, workers pull data independently without blocking sibling threads or introducing central synchronization latencies.
 
@@ -332,12 +330,12 @@ sequenceDiagram
 
 Cronix broadcasts state modifications to the frontend instantly using STOMP WebSocket frames over SockJS. Clients connect to the base socket at `/ws` and subscribe to these channels:
 
-| Destination Channel | Message Payload Type | Purpose |
-| :--- | :--- | :--- |
-| `/topic/jobs` | `Job` | Emits updates when a job changes status (e.g. `pending` $\rightarrow$ `running` $\rightarrow$ `completed`). |
-| `/topic/workers` | `Worker` | Emits worker health, online/offline status, CPU and memory usage statistics. |
-| `/topic/metrics` | `DashboardMetrics` | Publishes global queue telemetry, active count rates, and throughput. |
-| `/topic/notifications`| `Notification` | Broadcasts real-time warning alerts and system updates to active users. |
+| Destination Channel   | Message Payload Type | Purpose                                                                      |
+| :--------------------- | :-------------------- | :----------------------------------------------------------------------------- |
+| `/topic/jobs`          | `Job`                | Emits updates when a job changes status (e.g. `pending` → `running` → `completed`). |
+| `/topic/workers`       | `Worker`             | Emits worker health, online/offline status, CPU and memory usage statistics.  |
+| `/topic/metrics`       | `DashboardMetrics`   | Publishes global queue telemetry, active count rates, and throughput.        |
+| `/topic/notifications` | `Notification`       | Broadcasts real-time warning alerts and system updates to active users.      |
 
 ---
 
@@ -360,11 +358,11 @@ Cronix broadcasts state modifications to the frontend instantly using STOMP WebS
 │   ├── src/
 │   │   ├── components/         # Reusable UI Blocks (Layouts, Panels, Charts)
 │   │   ├── context/            # AuthContext, ThemeContext
-│   │   ├── hooks/              # Custom query hooks and state utilities
-│   │   ├── pages/              # Page views (Dashboard, DLQ, Metrics)
-│   │   ├── routes/             # Client routes mapping (Router.tsx)
-│   │   ├── services/           # Axios APIs & Mock Data fallback
-│   │   └── types/              # Domain-specific TypeScript Interfaces
+│   │   ├── hooks/               # Custom query hooks and state utilities
+│   │   ├── pages/                # Page views (Dashboard, DLQ, Metrics)
+│   │   ├── routes/               # Client routes mapping (Router.tsx)
+│   │   ├── services/             # Axios APIs & Mock Data fallback
+│   │   └── types/                # Domain-specific TypeScript Interfaces
 │   ├── package.json            # NPM Dependencies
 │   └── vite.config.ts          # Vite Configuration
 ├── database/
@@ -381,7 +379,7 @@ Cronix broadcasts state modifications to the frontend instantly using STOMP WebS
 
 ## REST API Endpoints Reference
 
-All API endpoints are prefixed with `/api/v1`. 
+All API endpoints are prefixed with `/api/v1`.
 
 ### 1. Authentication (`/auth`)
 *   `POST /auth/register` - Register a new user profile.
@@ -436,18 +434,18 @@ All API endpoints are prefixed with `/api/v1`.
 
 ## Worker Node Configuration
 
-The scheduler's behavior is customizable using standard configuration variables. Adjust worker behavior in [application.yml](file:///c:/Users/aayus/Desktop/Cronix/backend/src/main/resources/application.yml) or via environment variables:
+The scheduler's behavior is customizable using standard configuration variables. Adjust worker behavior in [application.yml](backend/src/main/resources/application.yml) or via environment variables:
 
-| Configuration Property | Default Value | Description |
-| :--- | :--- | :--- |
-| `app.worker.enabled` | `true` | Enables or disables background job claiming on the backend node. |
-| `app.worker.name` | `node-default`| Human-readable name used to track claiming worker metrics. |
-| `app.worker.poll-interval-ms` | `1000` | The frequency (in milliseconds) at which the node queries database queues. |
-| `app.worker.heartbeat-interval-ms`| `5000` | Frequency at which the worker updates its status and CPU metrics in the DB. |
-| `app.worker.stale-threshold-ms`| `30000` | Duration (in milliseconds) after which an inactive worker is marked offline. |
-| `app.worker.concurrency.core-pool-size` | `10` | The minimum number of asynchronous job executor threads. |
-| `app.worker.concurrency.max-pool-size` | `20` | Maximum limit of execution threads. |
-| `app.worker.concurrency.queue-capacity`| `100` | Max job queue buffer capacity for local execution threads. |
+| Configuration Property                  | Default Value   | Description                                                                  |
+| :--------------------------------------- | :---------------- | :------------------------------------------------------------------------------ |
+| `app.worker.enabled`                    | `true`           | Enables or disables background job claiming on the backend node.            |
+| `app.worker.name`                       | `node-default`   | Human-readable name used to track claiming worker metrics.                   |
+| `app.worker.poll-interval-ms`           | `1000`           | The frequency (in milliseconds) at which the node queries database queues.   |
+| `app.worker.heartbeat-interval-ms`      | `5000`           | Frequency at which the worker updates its status and CPU metrics in the DB.  |
+| `app.worker.stale-threshold-ms`         | `30000`          | Duration (in milliseconds) after which an inactive worker is marked offline. |
+| `app.worker.concurrency.core-pool-size` | `10`             | The minimum number of asynchronous job executor threads.                    |
+| `app.worker.concurrency.max-pool-size`  | `20`             | Maximum limit of execution threads.                                         |
+| `app.worker.concurrency.queue-capacity` | `100`            | Max job queue buffer capacity for local execution threads.                  |
 
 ---
 
@@ -523,7 +521,7 @@ To spin up the entire application along with pre-configured PostgreSQL and Redis
 docker-compose up --build -d
 ```
 
-This commands compiles the application packages in a multi-stage Docker build, mapping these external ports:
+This command compiles the application packages in a multi-stage Docker build, mapping these external ports:
 *   Frontend: `http://localhost:80`
 *   Backend: `http://localhost:8080`
 *   PostgreSQL DB: `http://localhost:5432`
@@ -547,7 +545,7 @@ If you want to evaluate the React interface without running databases, Maven, or
 
 ### 1. Database Connection Failures
 *   **Symptom**: Backend boot exits with `Connection refused` exceptions.
-*   **Check**: Make sure your PostgreSQL service is online. Verify the database connection properties in [application.yml](file:///c:/Users/aayus/Desktop/Cronix/backend/src/main/resources/application.yml) or ensure your environment variables are configured correctly.
+*   **Check**: Make sure your PostgreSQL service is online. Verify the database connection properties in [application.yml](backend/src/main/resources/application.yml) or ensure your environment variables are configured correctly.
 
 ### 2. Redis Connection Refused
 *   **Symptom**: Scheduled jobs load properly but real-time telemetry elements fail.
@@ -555,7 +553,7 @@ If you want to evaluate the React interface without running databases, Maven, or
 
 ### 3. Port Configuration Conflicts
 *   **Symptom**: Boot fails with `Address already in use` error messages.
-*   **Resolution**: Kill conflicting processes or alter binding ports in [application.yml](file:///c:/Users/aayus/Desktop/Cronix/backend/src/main/resources/application.yml):
+*   **Resolution**: Kill conflicting processes or alter binding ports in [application.yml](backend/src/main/resources/application.yml):
     ```yml
     server:
       port: 9090 # Change server port if 8080 is locked
@@ -565,5 +563,4 @@ If you want to evaluate the React interface without running databases, Maven, or
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.#   C r o n i x  
- 
+This project is licensed under the MIT License - see the LICENSE file for details.
