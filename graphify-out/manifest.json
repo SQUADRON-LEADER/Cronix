@@ -1,0 +1,952 @@
+{
+  "backend/src/main/java/com/cronix/backend/BackendApplication.java": {
+    "mtime": 1783145091.2901592,
+    "ast_hash": "4236e82ba125e8d3311887924cb91c77",
+    "semantic_hash": "4236e82ba125e8d3311887924cb91c77"
+  },
+  "backend/src/main/java/com/cronix/backend/application/service/AuthService.java": {
+    "mtime": 1783145505.446427,
+    "ast_hash": "3982bd8790ac625c55f29a0ab692597c",
+    "semantic_hash": "3982bd8790ac625c55f29a0ab692597c"
+  },
+  "backend/src/main/java/com/cronix/backend/application/service/CronSchedulerService.java": {
+    "mtime": 1783145613.3514352,
+    "ast_hash": "976bb476f6a15402b24cfed83363eb7f",
+    "semantic_hash": "976bb476f6a15402b24cfed83363eb7f"
+  },
+  "backend/src/main/java/com/cronix/backend/application/service/DlqService.java": {
+    "mtime": 1783145569.7109227,
+    "ast_hash": "80c0d8e3c3f5f276a7450eba6074d37f",
+    "semantic_hash": "80c0d8e3c3f5f276a7450eba6074d37f"
+  },
+  "backend/src/main/java/com/cronix/backend/application/service/JobService.java": {
+    "mtime": 1783145560.4834168,
+    "ast_hash": "765c194c374add478ebe26324698247a",
+    "semantic_hash": "765c194c374add478ebe26324698247a"
+  },
+  "backend/src/main/java/com/cronix/backend/application/service/LogService.java": {
+    "mtime": 1783145647.851992,
+    "ast_hash": "9ac7101caa067e0dc14e22893a20391a",
+    "semantic_hash": "9ac7101caa067e0dc14e22893a20391a"
+  },
+  "backend/src/main/java/com/cronix/backend/application/service/MetricService.java": {
+    "mtime": 1783145638.718548,
+    "ast_hash": "8278ac9f11a809eccff149e7278bc370",
+    "semantic_hash": "8278ac9f11a809eccff149e7278bc370"
+  },
+  "backend/src/main/java/com/cronix/backend/application/service/ProjectService.java": {
+    "mtime": 1783145520.9578974,
+    "ast_hash": "c31b6d89b924a0c659fc3ae30849f887",
+    "semantic_hash": "c31b6d89b924a0c659fc3ae30849f887"
+  },
+  "backend/src/main/java/com/cronix/backend/application/service/QueueService.java": {
+    "mtime": 1783145542.919169,
+    "ast_hash": "fedba269c2294ffead4550fc01a7ff5e",
+    "semantic_hash": "fedba269c2294ffead4550fc01a7ff5e"
+  },
+  "backend/src/main/java/com/cronix/backend/application/service/RetryEngine.java": {
+    "mtime": 1783145551.0793314,
+    "ast_hash": "95ffd9c47efd8d673f8413e7ad7b8ff3",
+    "semantic_hash": "95ffd9c47efd8d673f8413e7ad7b8ff3"
+  },
+  "backend/src/main/java/com/cronix/backend/application/service/WorkerService.java": {
+    "mtime": 1783145580.9638453,
+    "ast_hash": "963cccd941b819b4e75473a7dac360b0",
+    "semantic_hash": "963cccd941b819b4e75473a7dac360b0"
+  },
+  "backend/src/main/java/com/cronix/backend/domain/model/DashboardMetrics.java": {
+    "mtime": 1783145179.7153916,
+    "ast_hash": "79413562669557187f70edd2b156fe7d",
+    "semantic_hash": "79413562669557187f70edd2b156fe7d"
+  },
+  "backend/src/main/java/com/cronix/backend/domain/model/DeadLetterJob.java": {
+    "mtime": 1783145149.7867525,
+    "ast_hash": "6e61421f36104e9322a38890a9ea064e",
+    "semantic_hash": "6e61421f36104e9322a38890a9ea064e"
+  },
+  "backend/src/main/java/com/cronix/backend/domain/model/ExecutionLog.java": {
+    "mtime": 1783145163.1867707,
+    "ast_hash": "9cde13e646dfafd78b7b0a665b6e32bd",
+    "semantic_hash": "9cde13e646dfafd78b7b0a665b6e32bd"
+  },
+  "backend/src/main/java/com/cronix/backend/domain/model/Job.java": {
+    "mtime": 1783145134.4247253,
+    "ast_hash": "95b9bcd863062e52b8024e3ba6eef6f9",
+    "semantic_hash": "95b9bcd863062e52b8024e3ba6eef6f9"
+  },
+  "backend/src/main/java/com/cronix/backend/domain/model/MetricPoint.java": {
+    "mtime": 1783145185.6264172,
+    "ast_hash": "42ad8c2ba43eab0af6a7e9b4343ca282",
+    "semantic_hash": "42ad8c2ba43eab0af6a7e9b4343ca282"
+  },
+  "backend/src/main/java/com/cronix/backend/domain/model/Notification.java": {
+    "mtime": 1783145170.2624166,
+    "ast_hash": "b0cbd8b1d1664e980a97c83ec08eab1a",
+    "semantic_hash": "b0cbd8b1d1664e980a97c83ec08eab1a"
+  },
+  "backend/src/main/java/com/cronix/backend/domain/model/Organization.java": {
+    "mtime": 1783145105.217699,
+    "ast_hash": "aab2ddb9bf25861f531d1c1123cc9fec",
+    "semantic_hash": "aab2ddb9bf25861f531d1c1123cc9fec"
+  },
+  "backend/src/main/java/com/cronix/backend/domain/model/Project.java": {
+    "mtime": 1783145115.5474887,
+    "ast_hash": "742b08d45ba642f5a1a534f43984cc21",
+    "semantic_hash": "742b08d45ba642f5a1a534f43984cc21"
+  },
+  "backend/src/main/java/com/cronix/backend/domain/model/Queue.java": {
+    "mtime": 1783145124.8180568,
+    "ast_hash": "7ec1a1ed87600fa31767368bc49dd90c",
+    "semantic_hash": "7ec1a1ed87600fa31767368bc49dd90c"
+  },
+  "backend/src/main/java/com/cronix/backend/domain/model/ScheduledJob.java": {
+    "mtime": 1783145142.8000863,
+    "ast_hash": "e01b0fe60d61ed9a3d99496ec9def728",
+    "semantic_hash": "e01b0fe60d61ed9a3d99496ec9def728"
+  },
+  "backend/src/main/java/com/cronix/backend/domain/model/User.java": {
+    "mtime": 1783145098.145273,
+    "ast_hash": "052c33d495fdc88b171fc728ef16d46e",
+    "semantic_hash": "052c33d495fdc88b171fc728ef16d46e"
+  },
+  "backend/src/main/java/com/cronix/backend/domain/model/Worker.java": {
+    "mtime": 1783145156.3131,
+    "ast_hash": "d38f00eba8efeb424008c5fdd24d6c08",
+    "semantic_hash": "d38f00eba8efeb424008c5fdd24d6c08"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/bootstrap/DatabaseSeeder.java": {
+    "mtime": 1783148252.677815,
+    "ast_hash": "585c9dc0750d39716e9c3d4eabddb8fb",
+    "semantic_hash": "585c9dc0750d39716e9c3d4eabddb8fb"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/config/OpenApiConfig.java": {
+    "mtime": 1783145390.4549413,
+    "ast_hash": "4de3f4a68c1f46be1c45423477035c5b",
+    "semantic_hash": "4de3f4a68c1f46be1c45423477035c5b"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/entity/DeadLetterJobEntity.java": {
+    "mtime": 1783145236.934884,
+    "ast_hash": "481b653c260c1d3eb69465a3686f1bf3",
+    "semantic_hash": "481b653c260c1d3eb69465a3686f1bf3"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/entity/JobEntity.java": {
+    "mtime": 1783145528.5503604,
+    "ast_hash": "126057bc42b787d3cb42cf8c1401a82b",
+    "semantic_hash": "126057bc42b787d3cb42cf8c1401a82b"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/entity/JobExecutionEntity.java": {
+    "mtime": 1783145250.7654145,
+    "ast_hash": "098acbd436fbdc8de04bf5fdfe7e8b03",
+    "semantic_hash": "098acbd436fbdc8de04bf5fdfe7e8b03"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/entity/NotificationEntity.java": {
+    "mtime": 1783145258.8637042,
+    "ast_hash": "a40880f3118af1c100a7257e476c22c6",
+    "semantic_hash": "a40880f3118af1c100a7257e476c22c6"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/entity/OrganizationEntity.java": {
+    "mtime": 1783145199.4346638,
+    "ast_hash": "a3fca023394e5809500ac11e54fd192d",
+    "semantic_hash": "a3fca023394e5809500ac11e54fd192d"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/entity/ProjectEntity.java": {
+    "mtime": 1783145207.0179946,
+    "ast_hash": "faf96e55d14471d80b469d635ad5d2a2",
+    "semantic_hash": "faf96e55d14471d80b469d635ad5d2a2"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/entity/QueueEntity.java": {
+    "mtime": 1783145214.3781154,
+    "ast_hash": "6024b44f8f8217f052b9915be409734b",
+    "semantic_hash": "6024b44f8f8217f052b9915be409734b"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/entity/ScheduledJobEntity.java": {
+    "mtime": 1783145227.4856734,
+    "ast_hash": "59b09fa7fd3aaf55018dff82a77f5728",
+    "semantic_hash": "59b09fa7fd3aaf55018dff82a77f5728"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/entity/UserEntity.java": {
+    "mtime": 1783145193.3715458,
+    "ast_hash": "ca29bd9b4392563ff0bfa4b49b052f7b",
+    "semantic_hash": "ca29bd9b4392563ff0bfa4b49b052f7b"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/entity/WorkerEntity.java": {
+    "mtime": 1783145244.5771375,
+    "ast_hash": "baf6b90591c80f049947aeb3503c898a",
+    "semantic_hash": "baf6b90591c80f049947aeb3503c898a"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/repository/DeadLetterJobRepository.java": {
+    "mtime": 1783145319.2473583,
+    "ast_hash": "2da9433d4b9cfe8cd08c468d9bf90e56",
+    "semantic_hash": "2da9433d4b9cfe8cd08c468d9bf90e56"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/repository/JobExecutionRepository.java": {
+    "mtime": 1783145333.9380336,
+    "ast_hash": "93bf5307d6ce09ab10cb9b2e04505ab5",
+    "semantic_hash": "93bf5307d6ce09ab10cb9b2e04505ab5"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/repository/JobRepository.java": {
+    "mtime": 1783145625.7333167,
+    "ast_hash": "bfca24c2c8550d0f7d09ca12ac65773b",
+    "semantic_hash": "bfca24c2c8550d0f7d09ca12ac65773b"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/repository/NotificationRepository.java": {
+    "mtime": 1783145341.7758846,
+    "ast_hash": "f740a7eace693c978f99e745b2db28e2",
+    "semantic_hash": "f740a7eace693c978f99e745b2db28e2"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/repository/OrganizationRepository.java": {
+    "mtime": 1783145278.269496,
+    "ast_hash": "c1022f40da7c43813a7c62e2eb6e3d01",
+    "semantic_hash": "c1022f40da7c43813a7c62e2eb6e3d01"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/repository/ProjectRepository.java": {
+    "mtime": 1783145288.1033578,
+    "ast_hash": "ce9d3f614f354f13aeb2f08c94fc4e10",
+    "semantic_hash": "ce9d3f614f354f13aeb2f08c94fc4e10"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/repository/QueueRepository.java": {
+    "mtime": 1783145296.3044279,
+    "ast_hash": "ff26e10872972f2aeb6795ddd8991295",
+    "semantic_hash": "ff26e10872972f2aeb6795ddd8991295"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/repository/ScheduledJobRepository.java": {
+    "mtime": 1783145312.4669783,
+    "ast_hash": "11a591d7e8261c3c1c477b184472fb91",
+    "semantic_hash": "11a591d7e8261c3c1c477b184472fb91"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/repository/UserRepository.java": {
+    "mtime": 1783145268.4423208,
+    "ast_hash": "f84fdf0b4d5d3d64956fa0470a0ba8e2",
+    "semantic_hash": "f84fdf0b4d5d3d64956fa0470a0ba8e2"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/persistence/repository/WorkerRepository.java": {
+    "mtime": 1783145513.2990448,
+    "ast_hash": "622d224585427c4ccadcadabeeaeac28",
+    "semantic_hash": "622d224585427c4ccadcadabeeaeac28"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/security/CustomUserDetailsService.java": {
+    "mtime": 1783145365.5196488,
+    "ast_hash": "d0fed03c332a78bdb02c6267ad12dd89",
+    "semantic_hash": "d0fed03c332a78bdb02c6267ad12dd89"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/security/JwtAuthenticationFilter.java": {
+    "mtime": 1783145358.387323,
+    "ast_hash": "1074b22ba8dbac1bcbf7958e8ae0c782",
+    "semantic_hash": "1074b22ba8dbac1bcbf7958e8ae0c782"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/security/JwtTokenProvider.java": {
+    "mtime": 1783145349.8874266,
+    "ast_hash": "7cb0ddcfd9d0bc8948417cc533243769",
+    "semantic_hash": "7cb0ddcfd9d0bc8948417cc533243769"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/security/SecurityConfig.java": {
+    "mtime": 1783145374.3212845,
+    "ast_hash": "7b1970aa51e0d339654a62b1952172ff",
+    "semantic_hash": "7b1970aa51e0d339654a62b1952172ff"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/websocket/WebSocketBroadcaster.java": {
+    "mtime": 1783145793.2401533,
+    "ast_hash": "777530fe9f6854c17ae24cc904f25c1d",
+    "semantic_hash": "777530fe9f6854c17ae24cc904f25c1d"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/websocket/WebSocketConfig.java": {
+    "mtime": 1783145381.9319985,
+    "ast_hash": "2e7ef72cedced7c0c225cc3ff2a8b97f",
+    "semantic_hash": "2e7ef72cedced7c0c225cc3ff2a8b97f"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/worker/JobClaimer.java": {
+    "mtime": 1783145590.9934542,
+    "ast_hash": "dcb105b5b0cd68645b6fa85f8e8da4e2",
+    "semantic_hash": "dcb105b5b0cd68645b6fa85f8e8da4e2"
+  },
+  "backend/src/main/java/com/cronix/backend/infrastructure/worker/WorkerPoller.java": {
+    "mtime": 1783145602.7104952,
+    "ast_hash": "d211accf65ee392d090460082e0cbef7",
+    "semantic_hash": "d211accf65ee392d090460082e0cbef7"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/controller/AuthController.java": {
+    "mtime": 1783145686.1657891,
+    "ast_hash": "f5c6a9f560331e4cd76f77ee45d73c43",
+    "semantic_hash": "f5c6a9f560331e4cd76f77ee45d73c43"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/controller/DlqController.java": {
+    "mtime": 1783145754.783322,
+    "ast_hash": "80503100cd1061c8f1efbb4f7c29b682",
+    "semantic_hash": "80503100cd1061c8f1efbb4f7c29b682"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/controller/JobController.java": {
+    "mtime": 1783145722.8908868,
+    "ast_hash": "7773efc493929df27b3ab9024458740c",
+    "semantic_hash": "7773efc493929df27b3ab9024458740c"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/controller/LogController.java": {
+    "mtime": 1783145745.7292204,
+    "ast_hash": "83385afe76b3427deff339a59b32ba30",
+    "semantic_hash": "83385afe76b3427deff339a59b32ba30"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/controller/MetricsController.java": {
+    "mtime": 1783145770.6061575,
+    "ast_hash": "d51865fb280c6d759be4a4b38f7fc9b2",
+    "semantic_hash": "d51865fb280c6d759be4a4b38f7fc9b2"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/controller/ProjectController.java": {
+    "mtime": 1783145696.575169,
+    "ast_hash": "6b8df0279af92c61babc32cfbac1fd73",
+    "semantic_hash": "6b8df0279af92c61babc32cfbac1fd73"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/controller/QueueController.java": {
+    "mtime": 1783145705.184162,
+    "ast_hash": "2beec38dc12dca333e2dd62d14987639",
+    "semantic_hash": "2beec38dc12dca333e2dd62d14987639"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/controller/WorkerController.java": {
+    "mtime": 1783145733.0861406,
+    "ast_hash": "df7a4e55586d834d450cab63e979d82c",
+    "semantic_hash": "df7a4e55586d834d450cab63e979d82c"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/dto/AuthResponse.java": {
+    "mtime": 1783145677.4366293,
+    "ast_hash": "fb11d33c3e0519c3a7b31a665004874a",
+    "semantic_hash": "fb11d33c3e0519c3a7b31a665004874a"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/dto/LoginRequest.java": {
+    "mtime": 1783145663.500593,
+    "ast_hash": "457716f89c135718a13a072adf1d41e5",
+    "semantic_hash": "457716f89c135718a13a072adf1d41e5"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/dto/PaginatedResponseDto.java": {
+    "mtime": 1783145713.476498,
+    "ast_hash": "7da7f0399be6bed574a5b253a74d20a4",
+    "semantic_hash": "7da7f0399be6bed574a5b253a74d20a4"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/dto/RegisterRequest.java": {
+    "mtime": 1783145670.55794,
+    "ast_hash": "119c9d4f031a1eca4d1a663b16ac2866",
+    "semantic_hash": "119c9d4f031a1eca4d1a663b16ac2866"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/exception/ApiError.java": {
+    "mtime": 1783145496.911391,
+    "ast_hash": "7c31376bde84a34dfba2148d7389e5d0",
+    "semantic_hash": "7c31376bde84a34dfba2148d7389e5d0"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/exception/BadRequestException.java": {
+    "mtime": 1783145480.0963068,
+    "ast_hash": "6daf520fa7fcf48c4375abed3ebeef67",
+    "semantic_hash": "6daf520fa7fcf48c4375abed3ebeef67"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/exception/GlobalExceptionHandler.java": {
+    "mtime": 1783145781.030781,
+    "ast_hash": "593612f7477553ae0460e026fbef6fab",
+    "semantic_hash": "593612f7477553ae0460e026fbef6fab"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/exception/ResourceNotFoundException.java": {
+    "mtime": 1783145471.641881,
+    "ast_hash": "ad4c59ecb85a33dfdf498da145aad971",
+    "semantic_hash": "ad4c59ecb85a33dfdf498da145aad971"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/exception/UnauthorizedException.java": {
+    "mtime": 1783145489.835905,
+    "ast_hash": "7a4954617385575c518f856018451186",
+    "semantic_hash": "7a4954617385575c518f856018451186"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/mapper/DeadLetterJobMapper.java": {
+    "mtime": 1783145441.5805528,
+    "ast_hash": "2f6f46a688ee81cf5329699e69133f15",
+    "semantic_hash": "2f6f46a688ee81cf5329699e69133f15"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/mapper/JobExecutionMapper.java": {
+    "mtime": 1783145456.4538493,
+    "ast_hash": "d396bcd95c7f7b11a7a797627f049c6a",
+    "semantic_hash": "d396bcd95c7f7b11a7a797627f049c6a"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/mapper/JobMapper.java": {
+    "mtime": 1783145424.592838,
+    "ast_hash": "4a60f9e0cbf774092953534e50014300",
+    "semantic_hash": "4a60f9e0cbf774092953534e50014300"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/mapper/NotificationMapper.java": {
+    "mtime": 1783145463.781025,
+    "ast_hash": "98142215b83ae290664266bc0c5d29dd",
+    "semantic_hash": "98142215b83ae290664266bc0c5d29dd"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/mapper/ProjectMapper.java": {
+    "mtime": 1783145411.6917517,
+    "ast_hash": "8a97560a0c97566902d8afc6c4e48513",
+    "semantic_hash": "8a97560a0c97566902d8afc6c4e48513"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/mapper/QueueMapper.java": {
+    "mtime": 1783145418.0552418,
+    "ast_hash": "b67c3953ffad99b7e1754c8680c3052c",
+    "semantic_hash": "b67c3953ffad99b7e1754c8680c3052c"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/mapper/ScheduledJobMapper.java": {
+    "mtime": 1783145434.433683,
+    "ast_hash": "c6d922ecb9dc45d5f43ec569ecdf5afe",
+    "semantic_hash": "c6d922ecb9dc45d5f43ec569ecdf5afe"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/mapper/UserMapper.java": {
+    "mtime": 1783145405.1633785,
+    "ast_hash": "95b4c255d97fcda1d5d4b723efeaed26",
+    "semantic_hash": "95b4c255d97fcda1d5d4b723efeaed26"
+  },
+  "backend/src/main/java/com/cronix/backend/presentation/mapper/WorkerMapper.java": {
+    "mtime": 1783145449.1294653,
+    "ast_hash": "6b24478be4cc2a0cd14c4e5ba8255b20",
+    "semantic_hash": "6b24478be4cc2a0cd14c4e5ba8255b20"
+  },
+  "backend/src/test/java/com/cronix/backend/application/service/RetryEngineTest.java": {
+    "mtime": 1783145858.2065187,
+    "ast_hash": "4b26e2404b73d423ad6cc6dd8a4889ad",
+    "semantic_hash": "4b26e2404b73d423ad6cc6dd8a4889ad"
+  },
+  "backend/src/test/java/com/cronix/backend/application/service/WorkerServiceTest.java": {
+    "mtime": 1783145869.2401385,
+    "ast_hash": "1674c81f140558815a1cfadbc18a1999",
+    "semantic_hash": "1674c81f140558815a1cfadbc18a1999"
+  },
+  "database/schema.sql": {
+    "mtime": 1783145064.3115158,
+    "ast_hash": "31095bd3c5456db2147f7cb5a35977b6",
+    "semantic_hash": "31095bd3c5456db2147f7cb5a35977b6"
+  },
+  "frontend/components.json": {
+    "mtime": 1783143948.090931,
+    "ast_hash": "234f5ccb2edfb5d784f3ee77dd99bee4",
+    "semantic_hash": "234f5ccb2edfb5d784f3ee77dd99bee4"
+  },
+  "frontend/eslint.config.js": {
+    "mtime": 1783143948.097932,
+    "ast_hash": "2bc8570a791ea45c9895ec66bc8a86b9",
+    "semantic_hash": "2bc8570a791ea45c9895ec66bc8a86b9"
+  },
+  "frontend/package.json": {
+    "mtime": 1783143948.0609348,
+    "ast_hash": "0e1f86e55fa63e2c92504e46d510545a",
+    "semantic_hash": "0e1f86e55fa63e2c92504e46d510545a"
+  },
+  "frontend/postcss.config.js": {
+    "mtime": 1783143948.1648176,
+    "ast_hash": "c735540bb63936a123bc867d950c9f69",
+    "semantic_hash": "c735540bb63936a123bc867d950c9f69"
+  },
+  "frontend/src/App.tsx": {
+    "mtime": 1783143948.2322042,
+    "ast_hash": "108becd21194f97029146df5466c02a0",
+    "semantic_hash": "108becd21194f97029146df5466c02a0"
+  },
+  "frontend/src/components/charts/AreaChartComponent.tsx": {
+    "mtime": 1783143948.5935888,
+    "ast_hash": "8b01821ca2d79cfc61968dac8ea7340e",
+    "semantic_hash": "8b01821ca2d79cfc61968dac8ea7340e"
+  },
+  "frontend/src/components/charts/BarChartComponent.tsx": {
+    "mtime": 1783143948.5855913,
+    "ast_hash": "529015620c307e8556fca3ee3a4f378c",
+    "semantic_hash": "529015620c307e8556fca3ee3a4f378c"
+  },
+  "frontend/src/components/charts/DonutChart.tsx": {
+    "mtime": 1783143948.6239,
+    "ast_hash": "3afe87d0962eaf938c41aeaa66763317",
+    "semantic_hash": "3afe87d0962eaf938c41aeaa66763317"
+  },
+  "frontend/src/components/charts/LineChartComponent.tsx": {
+    "mtime": 1783143948.6139002,
+    "ast_hash": "1465ab23f2d6546546a44121ce51a70f",
+    "semantic_hash": "1465ab23f2d6546546a44121ce51a70f"
+  },
+  "frontend/src/components/charts/index.ts": {
+    "mtime": 1783143948.6045885,
+    "ast_hash": "0eba9b3c1311ea310cb95c2ada27498d",
+    "semantic_hash": "0eba9b3c1311ea310cb95c2ada27498d"
+  },
+  "frontend/src/components/common/ConfirmDialog.tsx": {
+    "mtime": 1783143948.6414113,
+    "ast_hash": "7dd0f4b7f12bd54d2753fd8043c4858c",
+    "semantic_hash": "7dd0f4b7f12bd54d2753fd8043c4858c"
+  },
+  "frontend/src/components/common/EmptyState.tsx": {
+    "mtime": 1783143948.6500144,
+    "ast_hash": "18bca9364fda683a987ccac2348943e7",
+    "semantic_hash": "18bca9364fda683a987ccac2348943e7"
+  },
+  "frontend/src/components/common/ErrorState.tsx": {
+    "mtime": 1783143948.6972413,
+    "ast_hash": "8e0afb28c5edac3e3b9d30ff31b40d21",
+    "semantic_hash": "8e0afb28c5edac3e3b9d30ff31b40d21"
+  },
+  "frontend/src/components/common/LoadingSkeleton.tsx": {
+    "mtime": 1783143948.6850135,
+    "ast_hash": "8410f87ada442816fe0f6a6d3be009c6",
+    "semantic_hash": "8410f87ada442816fe0f6a6d3be009c6"
+  },
+  "frontend/src/components/common/MetricCard.tsx": {
+    "mtime": 1783148367.6362147,
+    "ast_hash": "14509ac1b81fb83efc93bb790c6f7d25",
+    "semantic_hash": "14509ac1b81fb83efc93bb790c6f7d25"
+  },
+  "frontend/src/components/common/SearchInput.tsx": {
+    "mtime": 1783148376.6479857,
+    "ast_hash": "cae70e1740152ff7743acd1191100990",
+    "semantic_hash": "cae70e1740152ff7743acd1191100990"
+  },
+  "frontend/src/components/common/StatusChip.tsx": {
+    "mtime": 1783148387.4132442,
+    "ast_hash": "605d5e4d9d984749ed9cb3c71f6233d7",
+    "semantic_hash": "605d5e4d9d984749ed9cb3c71f6233d7"
+  },
+  "frontend/src/components/common/index.ts": {
+    "mtime": 1783143948.6630144,
+    "ast_hash": "877d5a4a5d1ded6c1c7d53ddacb4b2dd",
+    "semantic_hash": "877d5a4a5d1ded6c1c7d53ddacb4b2dd"
+  },
+  "frontend/src/components/layout/MainLayout.tsx": {
+    "mtime": 1783148628.0562935,
+    "ast_hash": "3d1512e87d546c2742ea0ebc12cd8149",
+    "semantic_hash": "3d1512e87d546c2742ea0ebc12cd8149"
+  },
+  "frontend/src/components/layout/Sidebar.tsx": {
+    "mtime": 1783149182.3903475,
+    "ast_hash": "8bafda25e30bd2807ef3548ba9b38415",
+    "semantic_hash": "8bafda25e30bd2807ef3548ba9b38415"
+  },
+  "frontend/src/components/layout/TopNavbar.tsx": {
+    "mtime": 1783148474.5844615,
+    "ast_hash": "793810c75b6efc6548c7a6e136189bae",
+    "semantic_hash": "793810c75b6efc6548c7a6e136189bae"
+  },
+  "frontend/src/components/layout/index.ts": {
+    "mtime": 1783143948.7466135,
+    "ast_hash": "a2198a9deb5241c04df1b1db3c8f2c43",
+    "semantic_hash": "a2198a9deb5241c04df1b1db3c8f2c43"
+  },
+  "frontend/src/components/ui/accordion.tsx": {
+    "mtime": 1783143949.2475736,
+    "ast_hash": "67d31ff1f190bbbb893cf940cd70c490",
+    "semantic_hash": "67d31ff1f190bbbb893cf940cd70c490"
+  },
+  "frontend/src/components/ui/alert-dialog.tsx": {
+    "mtime": 1783143949.2855766,
+    "ast_hash": "1a4032fc6a785040baf3e83e1981e665",
+    "semantic_hash": "1a4032fc6a785040baf3e83e1981e665"
+  },
+  "frontend/src/components/ui/alert.tsx": {
+    "mtime": 1783143949.2765744,
+    "ast_hash": "ddb52879af1773fd1614287ca78ace37",
+    "semantic_hash": "ddb52879af1773fd1614287ca78ace37"
+  },
+  "frontend/src/components/ui/aspect-ratio.tsx": {
+    "mtime": 1783143949.1660495,
+    "ast_hash": "c70958a3ed231865ffdc89fb871815e6",
+    "semantic_hash": "c70958a3ed231865ffdc89fb871815e6"
+  },
+  "frontend/src/components/ui/avatar.tsx": {
+    "mtime": 1783143949.2120497,
+    "ast_hash": "3724d264db5f7ccace0f954ac715ab45",
+    "semantic_hash": "3724d264db5f7ccace0f954ac715ab45"
+  },
+  "frontend/src/components/ui/badge.tsx": {
+    "mtime": 1783143949.0771043,
+    "ast_hash": "5f12ba12961f80d777604232fb64c057",
+    "semantic_hash": "5f12ba12961f80d777604232fb64c057"
+  },
+  "frontend/src/components/ui/breadcrumb.tsx": {
+    "mtime": 1783143949.2210872,
+    "ast_hash": "4356ee4fed6b670530d4e18a9ee6b883",
+    "semantic_hash": "4356ee4fed6b670530d4e18a9ee6b883"
+  },
+  "frontend/src/components/ui/button.tsx": {
+    "mtime": 1783143949.2300577,
+    "ast_hash": "da1d5a614209e3d274471a479c740c00",
+    "semantic_hash": "da1d5a614209e3d274471a479c740c00"
+  },
+  "frontend/src/components/ui/calendar.tsx": {
+    "mtime": 1783143948.8116412,
+    "ast_hash": "083b8b66e5a5eac314053a1160ecd331",
+    "semantic_hash": "083b8b66e5a5eac314053a1160ecd331"
+  },
+  "frontend/src/components/ui/card.tsx": {
+    "mtime": 1783143948.819641,
+    "ast_hash": "dc4d0a3f5038ac5697823495c1c0aad8",
+    "semantic_hash": "dc4d0a3f5038ac5697823495c1c0aad8"
+  },
+  "frontend/src/components/ui/carousel.tsx": {
+    "mtime": 1783143949.156052,
+    "ast_hash": "f5cd3361fcfc0c76905b3c9313dcc2b5",
+    "semantic_hash": "f5cd3361fcfc0c76905b3c9313dcc2b5"
+  },
+  "frontend/src/components/ui/chart.tsx": {
+    "mtime": 1783143948.8296468,
+    "ast_hash": "1ffee0d93af209e746545b5b02a3255b",
+    "semantic_hash": "1ffee0d93af209e746545b5b02a3255b"
+  },
+  "frontend/src/components/ui/checkbox.tsx": {
+    "mtime": 1783143949.20405,
+    "ast_hash": "f7ff88e012f9c39eb39f0a1a86cecfbd",
+    "semantic_hash": "f7ff88e012f9c39eb39f0a1a86cecfbd"
+  },
+  "frontend/src/components/ui/collapsible.tsx": {
+    "mtime": 1783143949.031924,
+    "ast_hash": "937b43648f84be046cb37ef2175fd538",
+    "semantic_hash": "937b43648f84be046cb37ef2175fd538"
+  },
+  "frontend/src/components/ui/command.tsx": {
+    "mtime": 1783143948.8011377,
+    "ast_hash": "2670124ec78c90d2892d69ede949340d",
+    "semantic_hash": "2670124ec78c90d2892d69ede949340d"
+  },
+  "frontend/src/components/ui/context-menu.tsx": {
+    "mtime": 1783143949.0550947,
+    "ast_hash": "0b5b3887905d149879f879b5bcb8885e",
+    "semantic_hash": "0b5b3887905d149879f879b5bcb8885e"
+  },
+  "frontend/src/components/ui/dialog.tsx": {
+    "mtime": 1783143949.2955737,
+    "ast_hash": "873fd0caf55fe0568f0f3260e6ddbf37",
+    "semantic_hash": "873fd0caf55fe0568f0f3260e6ddbf37"
+  },
+  "frontend/src/components/ui/drawer.tsx": {
+    "mtime": 1783143949.065103,
+    "ast_hash": "5dd33f58a5882cf2cf0ce7065a98f3a3",
+    "semantic_hash": "5dd33f58a5882cf2cf0ce7065a98f3a3"
+  },
+  "frontend/src/components/ui/dropdown-menu.tsx": {
+    "mtime": 1783143949.1750524,
+    "ast_hash": "0d54b255c6d22f94bf303b2408f76f77",
+    "semantic_hash": "0d54b255c6d22f94bf303b2408f76f77"
+  },
+  "frontend/src/components/ui/form.tsx": {
+    "mtime": 1783143949.011917,
+    "ast_hash": "96d5fc0edb6eb5b8e73c2ea821130e53",
+    "semantic_hash": "96d5fc0edb6eb5b8e73c2ea821130e53"
+  },
+  "frontend/src/components/ui/hover-card.tsx": {
+    "mtime": 1783143948.9629054,
+    "ast_hash": "891df804dc9b760a425c71fcec3181e3",
+    "semantic_hash": "891df804dc9b760a425c71fcec3181e3"
+  },
+  "frontend/src/components/ui/input-otp.tsx": {
+    "mtime": 1783143949.1940494,
+    "ast_hash": "3a6fcda28c6d73ee23e5358523fa85c6",
+    "semantic_hash": "3a6fcda28c6d73ee23e5358523fa85c6"
+  },
+  "frontend/src/components/ui/input.tsx": {
+    "mtime": 1783143949.0459394,
+    "ast_hash": "5f87eae09a4be200a8ec76d477cf6470",
+    "semantic_hash": "5f87eae09a4be200a8ec76d477cf6470"
+  },
+  "frontend/src/components/ui/label.tsx": {
+    "mtime": 1783143949.2675757,
+    "ast_hash": "48edfb1a798031d6fbc9575c83657c03",
+    "semantic_hash": "48edfb1a798031d6fbc9575c83657c03"
+  },
+  "frontend/src/components/ui/menubar.tsx": {
+    "mtime": 1783143949.0209136,
+    "ast_hash": "6096d1cf6ff84c63a0131caf64da5573",
+    "semantic_hash": "6096d1cf6ff84c63a0131caf64da5573"
+  },
+  "frontend/src/components/ui/navigation-menu.tsx": {
+    "mtime": 1783143949.18305,
+    "ast_hash": "f777c9c2cb9b860c60779ce0064f5745",
+    "semantic_hash": "f777c9c2cb9b860c60779ce0064f5745"
+  },
+  "frontend/src/components/ui/pagination.tsx": {
+    "mtime": 1783143949.256574,
+    "ast_hash": "c78eca384868f2a955b2b8c9b747baa0",
+    "semantic_hash": "c78eca384868f2a955b2b8c9b747baa0"
+  },
+  "frontend/src/components/ui/popover.tsx": {
+    "mtime": 1783143948.9749153,
+    "ast_hash": "36c3cd573b69caaa2ffca8f3ec756b2d",
+    "semantic_hash": "36c3cd573b69caaa2ffca8f3ec756b2d"
+  },
+  "frontend/src/components/ui/progress.tsx": {
+    "mtime": 1783143948.8739653,
+    "ast_hash": "cbe8366d723a6e7bdc132065fdc8360f",
+    "semantic_hash": "cbe8366d723a6e7bdc132065fdc8360f"
+  },
+  "frontend/src/components/ui/radio-group.tsx": {
+    "mtime": 1783143948.8914852,
+    "ast_hash": "adad46fb3587226e83c2fb5e176832ab",
+    "semantic_hash": "adad46fb3587226e83c2fb5e176832ab"
+  },
+  "frontend/src/components/ui/resizable.tsx": {
+    "mtime": 1783143948.782037,
+    "ast_hash": "655d36bc1928c19e4a771d16acba0767",
+    "semantic_hash": "655d36bc1928c19e4a771d16acba0767"
+  },
+  "frontend/src/components/ui/scroll-area.tsx": {
+    "mtime": 1783143948.9344215,
+    "ast_hash": "b9e7501bdda2e7a15d34c5e1e92940be",
+    "semantic_hash": "b9e7501bdda2e7a15d34c5e1e92940be"
+  },
+  "frontend/src/components/ui/select.tsx": {
+    "mtime": 1783143948.8609343,
+    "ast_hash": "66eab9c23f62f97729bd6611ed810049",
+    "semantic_hash": "66eab9c23f62f97729bd6611ed810049"
+  },
+  "frontend/src/components/ui/separator.tsx": {
+    "mtime": 1783143948.985913,
+    "ast_hash": "ef6f5e963f76ab877a5d4acb3845d1dc",
+    "semantic_hash": "ef6f5e963f76ab877a5d4acb3845d1dc"
+  },
+  "frontend/src/components/ui/sheet.tsx": {
+    "mtime": 1783143948.8501656,
+    "ast_hash": "3e6719c39a800a3257b81fab00f70004",
+    "semantic_hash": "3e6719c39a800a3257b81fab00f70004"
+  },
+  "frontend/src/components/ui/skeleton.tsx": {
+    "mtime": 1783143949.1365342,
+    "ast_hash": "2b43053b8a60703648a1cf110ebf5113",
+    "semantic_hash": "2b43053b8a60703648a1cf110ebf5113"
+  },
+  "frontend/src/components/ui/slider.tsx": {
+    "mtime": 1783143949.239057,
+    "ast_hash": "afd4da6556e7be8316b12bebeb8e3486",
+    "semantic_hash": "afd4da6556e7be8316b12bebeb8e3486"
+  },
+  "frontend/src/components/ui/sonner.tsx": {
+    "mtime": 1783143949.0891037,
+    "ast_hash": "742e852186241274a81fc53e8d5d493d",
+    "semantic_hash": "742e852186241274a81fc53e8d5d493d"
+  },
+  "frontend/src/components/ui/switch.tsx": {
+    "mtime": 1783143949.098106,
+    "ast_hash": "e0ae72a81302e5fb00b198ba12e6d11f",
+    "semantic_hash": "e0ae72a81302e5fb00b198ba12e6d11f"
+  },
+  "frontend/src/components/ui/table.tsx": {
+    "mtime": 1783143948.9989166,
+    "ast_hash": "d10aad813111f824ea2f4b470c436d9d",
+    "semantic_hash": "d10aad813111f824ea2f4b470c436d9d"
+  },
+  "frontend/src/components/ui/tabs.tsx": {
+    "mtime": 1783143948.8386474,
+    "ast_hash": "5d787292d4a75315f78fcd080965d1a3",
+    "semantic_hash": "5d787292d4a75315f78fcd080965d1a3"
+  },
+  "frontend/src/components/ui/textarea.tsx": {
+    "mtime": 1783143948.9164073,
+    "ast_hash": "3b980c23d842247a36ad2ac7581c584e",
+    "semantic_hash": "3b980c23d842247a36ad2ac7581c584e"
+  },
+  "frontend/src/components/ui/toast.tsx": {
+    "mtime": 1783143949.110519,
+    "ast_hash": "1ae872c72ad55e05a6a1471860a05c9f",
+    "semantic_hash": "1ae872c72ad55e05a6a1471860a05c9f"
+  },
+  "frontend/src/components/ui/toaster.tsx": {
+    "mtime": 1783143949.1235209,
+    "ast_hash": "fe492c31a2aa307c26cde383ff308b1b",
+    "semantic_hash": "fe492c31a2aa307c26cde383ff308b1b"
+  },
+  "frontend/src/components/ui/toggle-group.tsx": {
+    "mtime": 1783143948.7931275,
+    "ast_hash": "1a934d50045bdecb34614fa7a6244456",
+    "semantic_hash": "1a934d50045bdecb34614fa7a6244456"
+  },
+  "frontend/src/components/ui/toggle.tsx": {
+    "mtime": 1783143948.948445,
+    "ast_hash": "1abcf86d135e47d20811ec5136274e91",
+    "semantic_hash": "1abcf86d135e47d20811ec5136274e91"
+  },
+  "frontend/src/components/ui/tooltip.tsx": {
+    "mtime": 1783143949.1460497,
+    "ast_hash": "743007c7a1b0e8cad47280e677e9d083",
+    "semantic_hash": "743007c7a1b0e8cad47280e677e9d083"
+  },
+  "frontend/src/context/AuthContext.tsx": {
+    "mtime": 1783143949.346111,
+    "ast_hash": "82284790e586e132295a830486cd37f9",
+    "semantic_hash": "82284790e586e132295a830486cd37f9"
+  },
+  "frontend/src/context/index.ts": {
+    "mtime": 1783143949.3591146,
+    "ast_hash": "3601477a1ea31eba340edd4dd07cec9c",
+    "semantic_hash": "3601477a1ea31eba340edd4dd07cec9c"
+  },
+  "frontend/src/hooks/index.ts": {
+    "mtime": 1783143949.3295803,
+    "ast_hash": "7f0992418b9aba284444e248d0f75478",
+    "semantic_hash": "7f0992418b9aba284444e248d0f75478"
+  },
+  "frontend/src/hooks/use-toast.ts": {
+    "mtime": 1783143949.3106117,
+    "ast_hash": "4ecb13d1a9a56060154b1b4ad3217797",
+    "semantic_hash": "4ecb13d1a9a56060154b1b4ad3217797"
+  },
+  "frontend/src/hooks/useApi.ts": {
+    "mtime": 1783149892.446767,
+    "ast_hash": "4043559d99cde94eefa55d08507e45f3",
+    "semantic_hash": "4043559d99cde94eefa55d08507e45f3"
+  },
+  "frontend/src/lib/utils.ts": {
+    "mtime": 1783143948.3083408,
+    "ast_hash": "8595c2f874aa1ff8c7cc28df2999f354",
+    "semantic_hash": "8595c2f874aa1ff8c7cc28df2999f354"
+  },
+  "frontend/src/main.tsx": {
+    "mtime": 1783143948.2447166,
+    "ast_hash": "eb10138ed48767691f1c803ec3337c9b",
+    "semantic_hash": "eb10138ed48767691f1c803ec3337c9b"
+  },
+  "frontend/src/pages/auth/Login.tsx": {
+    "mtime": 1783150227.2837446,
+    "ast_hash": "1a71fed36ebb6e44182947cb5f35b297",
+    "semantic_hash": "1a71fed36ebb6e44182947cb5f35b297"
+  },
+  "frontend/src/pages/auth/Register.tsx": {
+    "mtime": 1783143948.5363894,
+    "ast_hash": "254b754a79082c72c16f4342a7998a65",
+    "semantic_hash": "254b754a79082c72c16f4342a7998a65"
+  },
+  "frontend/src/pages/auth/index.ts": {
+    "mtime": 1783143948.527383,
+    "ast_hash": "622d2d9a7d1a49e4273d13cac332a395",
+    "semantic_hash": "622d2d9a7d1a49e4273d13cac332a395"
+  },
+  "frontend/src/pages/dashboard/Dashboard.tsx": {
+    "mtime": 1783148483.6244822,
+    "ast_hash": "240621ffc4f070b2fa804f60693e3795",
+    "semantic_hash": "240621ffc4f070b2fa804f60693e3795"
+  },
+  "frontend/src/pages/dashboard/index.ts": {
+    "mtime": 1783143948.3374708,
+    "ast_hash": "a33141b7efd74b57bbcb6d4e76d30381",
+    "semantic_hash": "a33141b7efd74b57bbcb6d4e76d30381"
+  },
+  "frontend/src/pages/dlq/DeadLetterQueue.tsx": {
+    "mtime": 1783149114.4037125,
+    "ast_hash": "b660ef5b18625312c696f85d190f9f5e",
+    "semantic_hash": "b660ef5b18625312c696f85d190f9f5e"
+  },
+  "frontend/src/pages/dlq/index.ts": {
+    "mtime": 1783143948.482388,
+    "ast_hash": "99dde6a7a472fa0df08e5eac388992e8",
+    "semantic_hash": "99dde6a7a472fa0df08e5eac388992e8"
+  },
+  "frontend/src/pages/jobs/JobDetailsDrawer.tsx": {
+    "mtime": 1783143948.5053859,
+    "ast_hash": "e7401e4370c01f37e31772a71c128d2a",
+    "semantic_hash": "e7401e4370c01f37e31772a71c128d2a"
+  },
+  "frontend/src/pages/jobs/Jobs.tsx": {
+    "mtime": 1783149031.8969421,
+    "ast_hash": "248a43e4eaef74770cfa44d7cbb33936",
+    "semantic_hash": "248a43e4eaef74770cfa44d7cbb33936"
+  },
+  "frontend/src/pages/jobs/index.ts": {
+    "mtime": 1783143948.4973855,
+    "ast_hash": "baf571f8ae48f0fe6bd265c00e277f0b",
+    "semantic_hash": "baf571f8ae48f0fe6bd265c00e277f0b"
+  },
+  "frontend/src/pages/metrics/Metrics.tsx": {
+    "mtime": 1783149167.2248118,
+    "ast_hash": "679d1ffcd66cf7b283029263d0979ee5",
+    "semantic_hash": "679d1ffcd66cf7b283029263d0979ee5"
+  },
+  "frontend/src/pages/metrics/index.ts": {
+    "mtime": 1783143948.4264843,
+    "ast_hash": "08bb12eb874585920e4102bbe3216bf0",
+    "semantic_hash": "08bb12eb874585920e4102bbe3216bf0"
+  },
+  "frontend/src/pages/projects/Projects.tsx": {
+    "mtime": 1783149941.5012028,
+    "ast_hash": "7de90ef2f75a9b2d30e69aafae8451ba",
+    "semantic_hash": "7de90ef2f75a9b2d30e69aafae8451ba"
+  },
+  "frontend/src/pages/projects/index.ts": {
+    "mtime": 1783143948.3754914,
+    "ast_hash": "7f1b253bc678f60e272935004d8c7820",
+    "semantic_hash": "7f1b253bc678f60e272935004d8c7820"
+  },
+  "frontend/src/pages/queues/Queues.tsx": {
+    "mtime": 1783148966.614754,
+    "ast_hash": "de7256905b269333792554ed6d907ef1",
+    "semantic_hash": "de7256905b269333792554ed6d907ef1"
+  },
+  "frontend/src/pages/queues/index.ts": {
+    "mtime": 1783143948.4034843,
+    "ast_hash": "356a55023871f58efbee8e09f7d4e5da",
+    "semantic_hash": "356a55023871f58efbee8e09f7d4e5da"
+  },
+  "frontend/src/pages/settings/Settings.tsx": {
+    "mtime": 1783143948.449388,
+    "ast_hash": "b8e16fc1d1c4b8ca1325e38c7ba64a22",
+    "semantic_hash": "b8e16fc1d1c4b8ca1325e38c7ba64a22"
+  },
+  "frontend/src/pages/settings/index.ts": {
+    "mtime": 1783143948.4593852,
+    "ast_hash": "db443f0db7c6b707fea398e1c63f96bb",
+    "semantic_hash": "db443f0db7c6b707fea398e1c63f96bb"
+  },
+  "frontend/src/pages/workers/Workers.tsx": {
+    "mtime": 1783149258.2168038,
+    "ast_hash": "aacaa56f62ea9aa36373026ddfa9f2d2",
+    "semantic_hash": "aacaa56f62ea9aa36373026ddfa9f2d2"
+  },
+  "frontend/src/pages/workers/index.ts": {
+    "mtime": 1783143948.3514845,
+    "ast_hash": "b81c53ef7dfb2deac96bb93e6def4a1e",
+    "semantic_hash": "b81c53ef7dfb2deac96bb93e6def4a1e"
+  },
+  "frontend/src/routes/Router.tsx": {
+    "mtime": 1783143948.5664184,
+    "ast_hash": "042fb5aef3267c0aa259895dbf495b97",
+    "semantic_hash": "042fb5aef3267c0aa259895dbf495b97"
+  },
+  "frontend/src/routes/index.ts": {
+    "mtime": 1783143948.558903,
+    "ast_hash": "202e864fa7355ccc26a58f0b6fe5af66",
+    "semantic_hash": "202e864fa7355ccc26a58f0b6fe5af66"
+  },
+  "frontend/src/services/api.ts": {
+    "mtime": 1783148621.3369982,
+    "ast_hash": "8d1d192d09e534033b70e810dcda67fa",
+    "semantic_hash": "8d1d192d09e534033b70e810dcda67fa"
+  },
+  "frontend/src/services/mockData.ts": {
+    "mtime": 1783143948.2672083,
+    "ast_hash": "8df6a30ef9b5a0590ee700cda4fc210b",
+    "semantic_hash": "8df6a30ef9b5a0590ee700cda4fc210b"
+  },
+  "frontend/src/types/index.ts": {
+    "mtime": 1783143948.2922077,
+    "ast_hash": "5b5c58ff91d3ce811b20635cae30fe06",
+    "semantic_hash": "5b5c58ff91d3ce811b20635cae30fe06"
+  },
+  "frontend/src/vite-env.d.ts": {
+    "mtime": 1783143948.253703,
+    "ast_hash": "0352474ba2918efe13895edbc3780d94",
+    "semantic_hash": "0352474ba2918efe13895edbc3780d94"
+  },
+  "frontend/tailwind.config.js": {
+    "mtime": 1783148345.4135408,
+    "ast_hash": "2381300a690127c2332e92c32f744693",
+    "semantic_hash": "2381300a690127c2332e92c32f744693"
+  },
+  "frontend/tsconfig.app.json": {
+    "mtime": 1783143948.1409507,
+    "ast_hash": "1109cac572e234382588a5b943f54248",
+    "semantic_hash": "1109cac572e234382588a5b943f54248"
+  },
+  "frontend/tsconfig.json": {
+    "mtime": 1783143948.0709307,
+    "ast_hash": "7b5e29df8aa966a4f53eeb1d92c1c602",
+    "semantic_hash": "7b5e29df8aa966a4f53eeb1d92c1c602"
+  },
+  "frontend/tsconfig.node.json": {
+    "mtime": 1783143948.0324123,
+    "ast_hash": "fd32df1e922920eb085c1d20ffd7fd58",
+    "semantic_hash": "fd32df1e922920eb085c1d20ffd7fd58"
+  },
+  "frontend/vite.config.ts": {
+    "mtime": 1783145009.6348128,
+    "ast_hash": "d028adc4802c3371a17d0fd567cbb935",
+    "semantic_hash": "d028adc4802c3371a17d0fd567cbb935"
+  },
+  "package.json": {
+    "mtime": 1783146599.1528914,
+    "ast_hash": "b882db01783ec13a6fb0f9e5befb2d8d",
+    "semantic_hash": "b882db01783ec13a6fb0f9e5befb2d8d"
+  }
+}

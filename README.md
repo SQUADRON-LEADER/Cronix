@@ -1,143 +1,105 @@
 # Cronix Distributed Job Scheduler
 
-Cronix is a distributed job scheduling platform for teams that need reliable background execution, queue orchestration, and live operational visibility. It is designed to coordinate work across multiple worker nodes while keeping the scheduling layer deterministic, the execution layer resilient, and the operator experience clear.
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-23-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 23" />
+  <img src="https://img.shields.io/badge/Spring_Boot-3.3.1-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white" alt="Spring Boot 3.3.1" />
+  <img src="https://img.shields.io/badge/React-18.3.1-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React 18.3.1" />
+  <img src="https://img.shields.io/badge/TypeScript-5.5-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript 5.5" />
+  <img src="https://img.shields.io/badge/PostgreSQL-16-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL 16" />
+  <img src="https://img.shields.io/badge/Redis-7-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis 7" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS 3.4" />
+  <img src="https://img.shields.io/badge/Vite-5.4-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite 5.4" />
+  <img src="https://img.shields.io/badge/Docker-Container-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker Setup" />
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="License MIT" />
+</p>
 
-The application is built as a full monorepo with a Spring Boot backend, a React + TypeScript frontend, PostgreSQL for durable state, Redis for fast coordination and caching, and a real-time dashboard that surfaces queue health, worker status, job execution history, and scheduling activity.
+Cronix is an enterprise-grade, distributed job scheduling and queue orchestration platform. It is engineered for operations teams and developers who require highly reliable background execution, per-queue concurrency throttling, fine-grained retry topologies, and real-time operational visibility.
 
-The product emphasis is not only on running jobs, but on making the system understandable while it runs. That is why the UI, APIs, and backend model are documented and structured around operational concerns such as ownership, concurrency, retries, claiming, heartbeat monitoring, and telemetry.
+By decoupling the scheduling plane from worker runtimes, Cronix coordinates long-running and recurring workloads across multiple execution nodes. It maintains a deterministic scheduling layer, a resilient claim-and-run execution lifecycle, and an interactive dashboard focused on system health and live debugging.
 
-## Overview
+---
 
-Cronix is intended to behave like a control plane for background work. At a high level, it provides:
+## Table of Contents
+1. [Key Capabilities](#key-capabilities)
+2. [Clean Architecture Blueprint](#clean-architecture-blueprint)
+3. [Database Schema & Design](#database-schema--design)
+4. [Distributed Claiming & Concurrency Engine](#distributed-claiming--concurrency-engine)
+5. [Tech Stack & Core Libraries](#tech-stack--core-libraries)
+6. [Real-time STOMP Websocket Broadcasting](#real-time-stomp-websocket-broadcasting)
+7. [Repository Layout](#repository-layout)
+8. [REST API Endpoints Reference](#rest-api-endpoints-reference)
+9. [Worker Node Configuration](#worker-node-configuration)
+10. [Local Development & Setup](#local-development--setup)
+11. [Docker Deployment](#docker-deployment)
+12. [Frontend Demo Mode Sandbox](#frontend-demo-mode-sandbox)
+13. [Troubleshooting Guide](#troubleshooting-guide)
+14. [License](#license)
 
-1. Job creation and scheduling across queues.
-2. Worker registration and lifecycle tracking.
-3. Queue-level concurrency control.
-4. Retry handling and dead-letter visibility.
-5. Organization and project isolation for multi-tenant usage.
-6. Live telemetry for operations teams and developers.
-
-The system is split so that business behavior is separated from framework concerns. The backend owns the source of truth for jobs, queues, projects, workers, and execution logs. The frontend consumes that data to present a dashboard that is intentionally information-dense and suitable for real-time monitoring.
+---
 
 ## Key Capabilities
 
-Cronix is organized around the operational needs of a distributed scheduler rather than a single-process queue.
+*   **Atomic Claim-and-Run**: Uses row-level database locking to guarantee that exactly one worker claims a job run, releasing locks in less than a millisecond while execution continues asynchronously.
+*   **Per-Queue Concurrency Controls**: Prevents resource starvation by enforcing strict execution limits at the queue level, allowing sensitive or critical jobs to be isolated from high-volume batch queues.
+*   **Intelligent Retry Topologies**: Supports custom backoff policies (Fixed, Linear, Exponential) configured per queue. Jobs that exceed their max retry thresholds are safely dispatched to the Dead Letter Queue (DLQ).
+*   **Multi-tenant Organization & Project Isolation**: Models top-level Organizations and sub-Projects explicitly, providing strict access boundaries and role-based access control (RBAC).
+*   **Real-time Operations Dashboard**: Renders sub-second telemetry updates covering worker heartbeats, throughput trends, current queue depths, and live task executions.
+*   **Audit-Ready Execution Logs**: Retains structural execution records separately from job states, generating a clean log database to analyze task run histories and error root-causes.
 
-### Scheduling and Execution
+---
 
-Jobs can be queued, executed, retried, and observed across worker nodes. The system is structured to support a claim-and-run model where a worker atomically reserves a job, marks it as running, and then completes or fails it independently of the claim transaction.
+## Clean Architecture Blueprint
 
-### Queue Management
+Cronix is built using **Hexagonal and Clean Architecture** patterns. This design enforces strict decoupling: business code has zero knowledge of database technologies, security frameworks, or transport layers.
 
-Queues are first-class entities. They allow the platform to apply per-queue concurrency limits, priority rules, retry settings, and routing decisions. This makes it possible to isolate sensitive or high-priority workloads from bulk background processing.
-
-### Worker Health
-
-Workers send heartbeat-style operational data so the platform can determine whether nodes are alive, idle, overloaded, or disconnected. The dashboard can surface this information in real time for operators.
-
-### Multi-Tenant Structure
-
-Organizations, users, projects, and memberships are modeled explicitly. That means the platform can support access boundaries and role-based behavior instead of treating all work as a single flat queue.
-
-### Observability
-
-Execution events, queue status, worker metrics, and job history are surfaced through the API and presented in the UI so the scheduler can be monitored without needing direct database access.
-
-## Architecture
-
-Cronix follows a clean, layered architecture that keeps the application easy to reason about as it grows.
-
-```mermaid
-graph TD
-    subgraph Presentation["Presentation Layer"]
-        REST[REST Controllers]
-        WS[WebSocket Endpoints]
-        VALIDATION[Request Validation]
-    end
-
-    subgraph Application["Application Layer"]
-        USECASE[Use Cases / Services]
-        MAPPER[DTO Mapping]
-        POLICY[Scheduling and Retry Policy]
-    end
-
-    subgraph Domain["Domain Layer"]
-        ENTITIES[Core Entities]
-        PORTS[Repository and Service Ports]
-        RULES[Business Rules]
-    end
-
-    subgraph Infrastructure["Infrastructure Layer"]
-        SECURITY[Spring Security / JWT]
-        DATABASE[PostgreSQL / JPA]
-        CACHE[Redis]
-        WORKERS[Worker Runtime]
-        DOCS[OpenAPI / Swagger]
-    end
-
-    Presentation --> Application
-    Application --> Domain
-    Infrastructure --> Application
-    Infrastructure --> Domain
+```
+       +--------------------------------------------------------+
+       |                   Presentation Layer                   |
+       |  (REST Controllers, DTO Mappers, STOMP WebSockets, GW) |
+       +---------------------------v----------------------------+
+                                   |
+       +---------------------------v----------------------------+
+       |                   Application Layer                    |
+       |   (Use Cases, Transactional Services, Retry Engines)   |
+       +---------------------------v----------------------------+
+                                   |
+       +---------------------------v----------------------------+
+       |                      Domain Layer                      |
+       |       (Pure Business Entities, Interface Ports)        |
+       +---------------------------^----------------------------+
+                                   |
+       +---------------------------|----------------------------+
+       |                 Infrastructure Layer                   |
+       |  (Spring Data JPA, PostgreSQL, Redis Cache, Poller)    |
+       +--------------------------------------------------------+
 ```
 
-### Layer Responsibilities
+### Module Responsibilities
 
-#### Presentation Layer
+1.  **Domain Layer** ([com.cronix.backend.domain](file:///c:/Users/aayus/Desktop/Cronix/backend/src/main/java/com/cronix/backend/domain)):
+    *   Contains pure business entities (e.g., `Job`, `Queue`, `Worker`, `ScheduledJob`).
+    *   Maintains business validation rules.
+    *   Has zero dependencies on external frameworks (e.g., Hibernate annotations or Spring annotations) to keep the core scheduler rules generic and testable.
+2.  **Application Layer** ([com.cronix.backend.application](file:///c:/Users/aayus/Desktop/Cronix/backend/src/main/java/com/cronix/backend/application)):
+    *   Defines use cases and orchestrates service pipelines.
+    *   Contains transactional flow coordinators (e.g., `JobService`, `QueueService`, `RetryEngine`).
+    *   Resolves retry logic and schedules recurring jobs.
+3.  **Infrastructure Layer** ([com.cronix.backend.infrastructure](file:///c:/Users/aayus/Desktop/Cronix/backend/src/main/java/com/cronix/backend/infrastructure)):
+    *   Integrates frameworks with core business logic.
+    *   Handles database persistence via Spring Data JPA mappings to PostgreSQL.
+    *   Implements caching and locks using Redis.
+    *   Runs the background worker polling loops (`WorkerPoller`) and task executors.
+4.  **Presentation Layer** ([com.cronix.backend.presentation](file:///c:/Users/aayus/Desktop/Cronix/backend/src/main/java/com/cronix/backend/presentation)):
+    *   Exposes endpoints to external clients.
+    *   Contains REST controllers, WebSocket brokers, request validation rules, and the `GlobalExceptionHandler` to translate backend exceptions into structured JSON responses.
 
-This layer handles the external interface of the system. It accepts HTTP requests, validates payloads, serializes responses, and exposes real-time endpoints where needed. The goal is to keep transport concerns out of the core business flow.
+---
 
-#### Application Layer
+## Database Schema & Design
 
-This layer contains use cases and orchestration logic. It coordinates job submission, queue operations, user flows, retries, and execution workflows while keeping the transaction boundaries and business sequencing explicit.
+Cronix uses PostgreSQL as its primary transactional storage system. The schema is optimized for low-latency job claiming and robust historical reporting.
 
-#### Domain Layer
-
-This is the core of the system. It contains the entities and rules that define how Cronix works: jobs, queues, workers, organizations, projects, memberships, and execution records. It should remain as framework-independent as practical.
-
-#### Infrastructure Layer
-
-This layer integrates the system with Spring Boot, PostgreSQL, Redis, JWT authentication, WebSocket transport, and any runtime-specific concerns. It is where implementation details live, but not the business rules themselves.
-
-## Domain Model
-
-The domain model is centered on the concepts that make a distributed scheduler manageable in production.
-
-### Organizations and Users
-
-Organizations represent top-level tenant boundaries. Users belong to organizations through membership records and can carry roles that define what they are allowed to see or modify.
-
-### Projects
-
-Projects group queues and workload definitions. They help organize jobs by product area, environment, or business function.
-
-### Queues
-
-Queues are the execution backbone. They define priority, concurrency, and retry behavior. A queue determines how jobs are admitted to workers and how aggressively they can run in parallel.
-
-### Jobs
-
-Jobs are the units of work. Each job tracks status, attempts, timing data, payload data, result data, error information, and the worker that claimed it.
-
-### Scheduled Jobs
-
-Scheduled jobs represent recurring or delayed work. They store cron-style scheduling data, payloads, and next-run metadata so the scheduler can materialize future executions.
-
-### Dead Letter Jobs
-
-Dead-letter records preserve failed jobs that can no longer be retried. They provide a safety net for diagnosing failures and deciding whether a failed workload should be reprocessed.
-
-### Workers
-
-Workers are execution nodes. Their status, heartbeat, runtime metrics, version, and metadata are tracked so the platform knows which nodes are healthy and which are available.
-
-### Job Executions
-
-Execution records provide an audit trail of what ran, when it ran, where it ran, and what the outcome was. They are useful for debugging, reporting, and operational review.
-
-## Database Design
-
-Cronix uses PostgreSQL as the durable source of truth. The schema is designed to support relational integrity, fast lookup, and operational auditing.
+### Entity Relationship Diagram (ERD)
 
 ```mermaid
 erDiagram
@@ -146,6 +108,7 @@ erDiagram
         varchar name
         text description
         timestamp created_at
+        timestamp updated_at
     }
     USERS {
         uuid id PK
@@ -154,6 +117,7 @@ erDiagram
         varchar password_hash
         varchar role
         timestamp created_at
+        timestamp updated_at
     }
     ORGANIZATION_MEMBERS {
         uuid organization_id FK
@@ -167,6 +131,7 @@ erDiagram
         varchar status
         uuid organization_id FK
         timestamp created_at
+        timestamp updated_at
     }
     QUEUES {
         uuid id PK
@@ -180,6 +145,20 @@ erDiagram
         integer retry_max_delay_sec
         integer retry_max_attempts
         timestamp created_at
+        timestamp updated_at
+    }
+    WORKERS {
+        uuid id PK
+        varchar name UK
+        varchar status
+        timestamp last_heartbeat
+        bigint uptime_seconds
+        double cpu_usage
+        double memory_usage
+        varchar version
+        jsonb metadata
+        timestamp created_at
+        timestamp updated_at
     }
     JOBS {
         uuid id PK
@@ -197,6 +176,7 @@ erDiagram
         timestamp started_at
         timestamp completed_at
         timestamp created_at
+        timestamp updated_at
     }
     SCHEDULED_JOBS {
         uuid id PK
@@ -208,6 +188,8 @@ erDiagram
         integer max_attempts
         timestamp last_run_at
         timestamp next_run_at
+        timestamp created_at
+        timestamp updated_at
     }
     DEAD_LETTER_JOBS {
         uuid id PK
@@ -219,17 +201,7 @@ erDiagram
         timestamp failed_at
         jsonb payload
         boolean can_retry
-    }
-    WORKERS {
-        uuid id PK
-        varchar name UK
-        varchar status
-        timestamp last_heartbeat
-        bigint uptime_seconds
-        double cpu_usage
-        double memory_usage
-        varchar version
-        jsonb metadata
+        timestamp created_at
     }
     WORKER_QUEUES {
         uuid worker_id FK
@@ -249,6 +221,15 @@ erDiagram
         integer duration_ms
         jsonb metadata
     }
+    NOTIFICATIONS {
+        uuid id PK
+        uuid user_id FK
+        varchar type
+        varchar title
+        text message
+        boolean is_read
+        timestamp created_at
+    }
 
     ORGANIZATIONS ||--o{ ORGANIZATION_MEMBERS : owns
     USERS ||--o{ ORGANIZATION_MEMBERS : joins
@@ -260,254 +241,328 @@ erDiagram
     WORKERS ||--o{ WORKER_QUEUES : subscribes
     QUEUES ||--o{ WORKER_QUEUES : routes
     WORKERS ||--o{ JOBS : claims
+    USERS ||--o{ NOTIFICATIONS : notifies
 ```
 
-### Why the Schema is Structured This Way
+### Table Details & Indexes
 
-The database schema is intentionally normalized around the scheduler lifecycle.
+The complete SQL schema definition is maintained in [database/schema.sql](file:///c:/Users/aayus/Desktop/Cronix/database/schema.sql). The database features specialized indices to maximize throughput under high concurrent request loads:
 
-1. Organizational data is separated from runtime execution data so tenant boundaries remain clear.
-2. Queue metadata is stored independently so concurrency and retry policies can be tuned without changing job records.
-3. Job execution history is retained separately from job state so the platform can keep a durable audit trail.
-4. Worker state is tracked in a dedicated table to make health checks and routing decisions straightforward.
-5. Dead-letter data is preserved instead of being discarded so operators can diagnose failure patterns.
+*   `idx_jobs_status_queue_scheduled`: Crucial for polling. Indexes `(status, queue_id, scheduled_at)` to instantly fetch jobs matching execution bounds.
+*   `idx_workers_last_heartbeat`: Tracks worker health and allows background cleanup routines to detect crashed nodes.
+*   `idx_job_executions_timestamp`: Optimizes dashboard metric retrievals by indexing transaction logs in descending order.
 
-## Distributed Claiming and Concurrency
+---
 
-One of the most important parts of Cronix is how it prevents multiple workers from claiming the same job.
+## Distributed Claiming & Concurrency Engine
 
-The system uses PostgreSQL row locking with `FOR UPDATE SKIP LOCKED` so workers can safely poll a queue without blocking each other. A worker claims a job inside a short transaction, marks it as running, and then releases the lock immediately so the actual execution can proceed asynchronously.
+To prevent race conditions where multiple worker processes grab the same queue item, Cronix relies on PostgreSQL's row locking features (`FOR UPDATE SKIP LOCKED`). 
+
+By querying only pending jobs and skipping locked ones, workers pull data independently without blocking sibling threads or introducing central synchronization latencies.
+
+### Sequence Flow of Atomic Claim
 
 ```mermaid
 sequenceDiagram
-    participant Poller as Worker Poller
-    participant Claimer as Job Claimer
-    participant DB as PostgreSQL
-    participant Pool as Thread Pool
+    participant Poller as WorkerPoller (Background Thread)
+    participant Claimer as JobClaimer (REQUIRES_NEW)
+    participant DB as PostgreSQL Database
+    participant Exec as ThreadPoolExecutor
 
-    loop Every polling interval
-        Poller->>DB: Check queue concurrency
-        alt Capacity available
+    loop Every 1000ms
+        Poller->>DB: Get Queue Concurrency (Count running jobs < max_concurrency)
+        alt Concurrency Limit Safe
             Poller->>Claimer: claimJob(queueId, workerId)
-            Claimer->>DB: SELECT next queued job FOR UPDATE SKIP LOCKED
-            alt Job found
-                DB-->>Claimer: Locked job row
-                Claimer->>DB: UPDATE job status = running
-                Claimer-->>Poller: Claimed job details
-                Poller->>Pool: Execute asynchronously
-                Pool->>DB: UPDATE job status = completed or failed
-                Pool->>DB: INSERT execution log
-            else No job available
-                DB-->>Claimer: Empty result
-                Claimer-->>Poller: No work
+            activate Claimer
+            Note over Claimer: Start isolated transaction
+            Claimer->>DB: SELECT FOR UPDATE SKIP LOCKED (Pending jobs)
+            alt Job Row Returned
+                DB-->>Claimer: Return job details (locked row)
+                Claimer->>DB: UPDATE job SET status='running', worker_id=workerId, started_at=now
+                Claimer-->>Poller: Return claimed Job DTO
+                Note over Claimer: Commit transaction & instantly release DB lock
+                deactivate Claimer
+                Poller->>Exec: Execute job payload asynchronously
+                activate Exec
+                Note over Exec: Process workload
+                Exec->>DB: UPDATE job SET status='completed', completed_at=now, result=...
+                Exec->>DB: INSERT INTO job_executions (Audit Log)
+                deactivate Exec
+            else No Jobs Pending
+                DB-->>Claimer: Return Empty Set
+                Claimer-->>Poller: Return null (No Work)
+                Note over Claimer: Rollback/Commit transaction
+                deactivate Claimer
             end
-        else Capacity full
-            Poller-->>Poller: Wait for the next cycle
+        else Concurrency Max Reached
+            Poller-->>Poller: Skip Polling Cycle (Throttle)
         end
     end
 ```
 
-### Benefits of This Model
+### Design Benefits
+1.  **Zero Distributed Lock Overheads**: Skips third-party lock manager calls (like Redis Redlock or ZooKeeper), which eliminates roundtrip network latency on critical query paths.
+2.  **Short-Lived Database Locks**: By keeping the transaction in a dedicated boundary (`REQUIRES_NEW`), the lock on the job row is held for less than a millisecond, freeing database connection pools.
+3.  **Non-blocking Execution**: The worker claims the job row, updates its state to `running`, releases the transaction lock, and processes the payload inside a separate local thread pool. A worker failure or long execution never stalls database operations.
 
-This approach gives Cronix several practical advantages:
+---
 
-1. It avoids an external distributed lock service for the hot path of job claiming.
-2. It keeps the lock duration very short, which reduces contention.
-3. It allows multiple workers to poll the same queue safely.
-4. It scales better than a naive single-node scheduler because the claim operation remains atomic.
-5. It keeps execution separate from reservation so a slow job does not block the next claim cycle.
+## Tech Stack & Core Libraries
 
-## Frontend Design System
+### Backend Service (Java 23 / Spring Boot 3.3.1)
+*   **Java Runtime**: Version 23 (utilizing modern syntax and performance enhancements).
+*   **Spring Boot Framework**: Core foundation (`spring-boot-starter-web`, `validation`, `websocket`).
+*   **Persistence Layer**: Spring Data JPA utilizing Hibernate 6 and PostgreSQL JDBC drivers.
+*   **Caching & Coordination**: Redis via Spring Data Redis.
+*   **APIs & Security**: Spring Security, JWT (via JJWT), and SpringDoc OpenAPI (Swagger UI).
+*   **Development Utilities**: MapStruct (for high-performance DTO-to-entity mapping) and Lombok.
 
-The frontend is built as an operational dashboard rather than a generic admin panel. The design language is intentionally tactile and high-contrast, with soft surfaces and strong data presentation.
+### Frontend Dashboard (React 18 / TypeScript)
+*   **Build Toolchain**: Vite 5 + TypeScript.
+*   **Styling System**: Tailwind CSS v3 for fluid layouts and layout utilities.
+*   **UI Components**: Radix UI Primitives (for accessible popovers, dialogs, dropdowns).
+*   **State Management**: TanStack Query (React Query v5) for asynchronous endpoint polling and state caching.
+*   **Telemetry Visuals**: Recharts (for throughput and latency trend graphing).
+*   **Animation**: Framer Motion for interactive micro-animations.
+*   **Forms**: React Hook Form + Zod (for type-safe schema validations).
 
-### Visual Direction
+---
 
-The current UI uses a neumorphic and soft-surface aesthetic. Cards, panels, and metric blocks are styled to feel elevated from the background while still retaining a calm and controlled look.
+## Real-time STOMP Websocket Broadcasting
 
-### UI Behavior
+Cronix broadcasts state modifications to the frontend instantly using STOMP WebSocket frames over SockJS. Clients connect to the base socket at `/ws` and subscribe to these channels:
 
-The interface is organized around:
+| Destination Channel | Message Payload Type | Purpose |
+| :--- | :--- | :--- |
+| `/topic/jobs` | `Job` | Emits updates when a job changes status (e.g. `pending` $\rightarrow$ `running` $\rightarrow$ `completed`). |
+| `/topic/workers` | `Worker` | Emits worker health, online/offline status, CPU and memory usage statistics. |
+| `/topic/metrics` | `DashboardMetrics` | Publishes global queue telemetry, active count rates, and throughput. |
+| `/topic/notifications`| `Notification` | Broadcasts real-time warning alerts and system updates to active users. |
 
-1. Summary cards for quick status scanning.
-2. Charts for queue and job trend analysis.
-3. Tables and lists for detailed operational inspection.
-4. Status chips and visual indicators for runtime state.
-5. Dialogs and confirmation flows for destructive or important actions.
+---
 
-### Frontend Stack
+## Repository Layout
 
-The frontend uses a modern React toolchain with composable UI primitives.
+```
+.
+├── .agents/                    # Workspace agent guidelines & workflows
+├── backend/                    # Spring Boot Application
+│   ├── src/main/java/          # Java Sources
+│   │   └── com/cronix/backend/
+│   │       ├── application/    # Services, Orchestrators, Use Cases
+│   │       ├── domain/         # Domain Models, Entities, Repository Ports
+│   │       ├── infrastructure/ # JPA entities, security filters, poller threads
+│   │       └── presentation/   # REST Controllers, STOMP Endpoints, DTOs
+│   ├── src/main/resources/     # Configuration (application.yml)
+│   ├── src/test/java/          # Integration & Unit Tests
+│   └── pom.xml                 # Maven Configuration
+├── frontend/                   # React Application
+│   ├── src/
+│   │   ├── components/         # Reusable UI Blocks (Layouts, Panels, Charts)
+│   │   ├── context/            # AuthContext, ThemeContext
+│   │   ├── hooks/              # Custom query hooks and state utilities
+│   │   ├── pages/              # Page views (Dashboard, DLQ, Metrics)
+│   │   ├── routes/             # Client routes mapping (Router.tsx)
+│   │   ├── services/           # Axios APIs & Mock Data fallback
+│   │   └── types/              # Domain-specific TypeScript Interfaces
+│   ├── package.json            # NPM Dependencies
+│   └── vite.config.ts          # Vite Configuration
+├── database/
+│   └── schema.sql              # Core Schema and DDL Scripts
+├── docker/
+│   └── Dockerfiles             # Multi-stage image compilation files
+├── docs/
+│   └── architecture.md         # Extended Architectural Documentation
+├── docker-compose.yml          # Local infra orchestration (Postgres, Redis)
+└── package.json                # Monorepo command orchestration scripts
+```
 
-1. React 18 with TypeScript for component structure and safety.
-2. Vite for fast local development and optimized builds.
-3. Tailwind CSS for utility-driven styling and layout composition.
-4. Radix UI primitives for accessible interactive components.
-5. TanStack Query for client-side caching, polling, and server-state orchestration.
-6. Recharts for charting and telemetry visualization.
-7. Framer Motion for motion design and state transitions.
-8. Lucide React for icons.
-9. React Hook Form and Zod for validated form flows.
+---
 
-## Backend Stack
+## REST API Endpoints Reference
 
-The backend is a Spring Boot service with the responsibilities you would expect from a scheduler control plane.
+All API endpoints are prefixed with `/api/v1`. 
 
-### Runtime and Frameworks
+### 1. Authentication (`/auth`)
+*   `POST /auth/register` - Register a new user profile.
+*   `POST /auth/login` - Authenticate credentials and receive a JWT Bearer Token.
+*   `POST /auth/logout` - Invalidate user session.
+*   `GET /auth/me` - Fetch details of the current authenticated user.
 
-1. Java 23 for the application runtime.
-2. Spring Boot 3.3.1 for the service foundation.
-3. Spring Web for REST APIs.
-4. Spring Validation for request validation.
-5. Spring WebSocket for live transport.
-6. Spring Security for authentication and authorization.
-7. Spring Data JPA for persistence.
-8. PostgreSQL as the primary database.
-9. Redis for caching and coordination.
-10. MapStruct for DTO mapping.
-11. Lombok for concise domain and boilerplate support.
-12. SpringDoc OpenAPI for API documentation.
-13. JJWT for token handling.
+### 2. Projects (`/projects`)
+*   `GET /projects` - Retrieve a list of projects. Optional query filters: `search`, `status` (`active`, `inactive`, `archived`).
+*   `GET /projects/{id}` - Fetch a specific project by ID.
+*   `POST /projects` - Create a new project.
+*   `PUT /projects/{id}` - Update a project's name or metadata.
+*   `DELETE /projects/{id}` - Cascade-delete a project and its queues.
 
-### Backend Concerns
+### 3. Queues (`/queues`)
+*   `GET /queues` - List queues.
+*   `GET /queues/{id}` - Get queue configuration (concurrency limit, retry strategies).
+*   `POST /queues` - Define a new queue.
+*   `PUT /queues/{id}` - Edit queue concurrency boundaries and backoff parameters.
+*   `POST /queues/{id}/pause` - Pause job dispatching for this queue.
+*   `POST /queues/{id}/resume` - Resume job dispatching.
+*   `POST /queues/{id}/drain` - Switch queue to draining status (claims no new jobs, finishes active ones).
 
-The backend is responsible for:
+### 4. Jobs (`/jobs`)
+*   `GET /jobs` - Paginated job list. Parameters: `page`, `limit`, `sortBy`, `sortOrder`, `search`.
+*   `GET /jobs/{id}` - Fetch details of a single job.
+*   `POST /jobs` - Submit a new background job task.
+*   `POST /jobs/{id}/retry` - Manually retry a failed execution.
+*   `POST /jobs/{id}/cancel` - Cancel a pending or running job.
+*   `POST /jobs/{id}/requeue` - Copy job configuration and enqueue it as a new run.
 
-1. Authentication and authorization.
-2. Queue and job lifecycle management.
-3. Worker registration and status tracking.
-4. Scheduled job orchestration.
-5. Retry handling and dead-letter routing.
-6. Execution logging and telemetry generation.
-7. Real-time updates to the frontend.
+### 5. Workers (`/workers`)
+*   `GET /workers` - View active execution worker nodes and their CPU/memory loads.
+*   `GET /workers/{id}` - Details of a single node.
+*   `POST /workers/{id}/restart` - Send a restart signal to the remote worker.
+*   `POST /workers/{id}/drain` - Prevent worker from accepting new jobs.
 
-## Repository Structure
+### 6. Dead Letter Queue (`/dlq`)
+*   `GET /dlq` - List failed jobs that have exhausted all retry attempts.
+*   `POST /dlq/{id}/retry` - Retrieve job from DLQ and retry it.
+*   `POST /dlq/{id}/requeue` - Move job back into its origin queue.
+*   `DELETE /dlq/{id}` - Purge job from DLQ permanently.
 
-The repository is organized as a monorepo with a small root runner and two application packages.
+### 7. Metrics & Telemetry (`/metrics`)
+*   `GET /metrics/dashboard` - Return current health, system throughput, and queue states.
+*   `GET /metrics/throughput` - Return history data representing throughput trends.
+*   `GET /metrics/latency` - Return job runtime latencies.
+*   `GET /metrics/queue-depth` - Active queue count depths.
+*   `GET /metrics/worker-health` - CPU/memory usage stats grouped by worker names.
 
-1. `backend/` contains the Spring Boot application, its domain code, and test sources.
-2. `frontend/` contains the React dashboard, UI components, routes, and client services.
-3. `database/` contains the schema bootstrap script used to initialize PostgreSQL.
-4. `docs/` contains long-form architecture and design documentation.
-5. `docker/` contains container-related deployment assets.
+---
 
-### Frontend Source Layout
+## Worker Node Configuration
 
-The frontend source tree is divided by responsibility:
+The scheduler's behavior is customizable using standard configuration variables. Adjust worker behavior in [application.yml](file:///c:/Users/aayus/Desktop/Cronix/backend/src/main/resources/application.yml) or via environment variables:
 
-1. `components/` contains reusable UI building blocks and chart widgets.
-2. `context/` contains global context providers such as authentication.
-3. `hooks/` contains shared React hooks and API helpers.
-4. `pages/` contains route-level screens.
-5. `routes/` contains router configuration.
-6. `services/` contains API integration and mock data.
-7. `types/` contains shared TypeScript types.
+| Configuration Property | Default Value | Description |
+| :--- | :--- | :--- |
+| `app.worker.enabled` | `true` | Enables or disables background job claiming on the backend node. |
+| `app.worker.name` | `node-default`| Human-readable name used to track claiming worker metrics. |
+| `app.worker.poll-interval-ms` | `1000` | The frequency (in milliseconds) at which the node queries database queues. |
+| `app.worker.heartbeat-interval-ms`| `5000` | Frequency at which the worker updates its status and CPU metrics in the DB. |
+| `app.worker.stale-threshold-ms`| `30000` | Duration (in milliseconds) after which an inactive worker is marked offline. |
+| `app.worker.concurrency.core-pool-size` | `10` | The minimum number of asynchronous job executor threads. |
+| `app.worker.concurrency.max-pool-size` | `20` | Maximum limit of execution threads. |
+| `app.worker.concurrency.queue-capacity`| `100` | Max job queue buffer capacity for local execution threads. |
 
-### Backend Source Layout
+---
 
-The backend uses the standard Maven source layout:
-
-1. `src/main/java` contains the application code.
-2. `src/main/resources` contains runtime configuration.
-3. `src/test/java` contains automated tests.
-
-## API Documentation
-
-Cronix exposes a documented backend API intended to be consumed by the frontend dashboard and by future integrations.
-
-The project includes OpenAPI / Swagger support so developers can inspect the surface area of the backend and test endpoints interactively while developing.
-
-Typical API areas include:
-
-1. Authentication and session handling.
-2. Organization and project management.
-3. Queue administration.
-4. Job submission, inspection, and execution history.
-5. Worker and health monitoring.
-6. Metrics and operational reporting.
-
-## Local Development
+## Local Development & Setup
 
 ### Prerequisites
+Make sure your workstation meets these version dependencies:
+1.  **Java JDK 23** or newer.
+2.  **Node.js 18** or newer.
+3.  **PostgreSQL 16** (or compatible database).
+4.  **Redis 7** (for runtime caching).
 
-Before running the project locally, install or make available the following:
+---
 
-1. Node.js 18 or newer.
-2. Java JDK 23 or compatible runtime for the backend.
-3. PostgreSQL 16 or compatible.
-4. Redis 7 or compatible.
+### Step 1: Database Initialization
+1.  Connect to your PostgreSQL server and create a database named `cronix`:
+    ```sql
+    CREATE DATABASE cronix;
+    ```
+2.  Load the schema and seed data using the initialization script:
+    ```bash
+    psql -U postgres -d cronix -f database/schema.sql
+    ```
 
-### Run With One Command
-
-From the repository root, run both the backend and frontend together:
-
+### Step 2: Configure Environment Variables
+Copy or declare these variables in your shell environment if your local database credentials deviate from default settings:
 ```bash
+# Database Properties
+export DB_HOST=localhost
+export DB_PORT=5432
+export DB_NAME=cronix
+export DB_USER=postgres
+export DB_PASSWORD=postgres
+
+# Redis Properties
+export REDIS_HOST=localhost
+export REDIS_PORT=6379
+```
+
+### Step 3: Run the Monorepo Dev Servers
+From the root workspace folder, install package dependencies and run both servers simultaneously using:
+```bash
+# Install root script dependencies
+npm install
+
+# Start Spring Boot & Vite React together
 npm run dev
 ```
 
-This starts:
+*   **Frontend Hot-Reloading Server**: [http://localhost:5173/](http://localhost:5173/)
+*   **Backend Spring Boot Base API**: [http://localhost:8080/api/v1/](http://localhost:8080/api/v1/)
+*   **OpenAPI Documentation GUI**: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
-1. The frontend development server with hot module replacement.
-2. The backend Spring Boot application.
+---
 
-### Service URLs
+### Step 4: Login to Local Dashboard
+Authenticate with either developer profiles seeded automatically by the script:
 
-When running locally, the main entry points are typically:
+*   **Admin Profile**:
+    *   **Email**: `admin@cronix.com`
+    *   **Password**: `admin123`
+*   **Member Profile**:
+    *   **Email**: `member@cronix.com`
+    *   **Password**: `member123`
 
-1. Frontend dashboard: `http://localhost:5173/`
-2. Backend API: `http://localhost:8080/api/v1/`
-3. Swagger UI: `http://localhost:8080/swagger-ui.html`
+---
 
-## Docker Setup
+## Docker Deployment
 
-Cronix also includes Docker-based composition for local infrastructure and deployment-style workflows.
+To spin up the entire application along with pre-configured PostgreSQL and Redis servers, run Docker Compose from the root directory:
 
-The root `docker-compose.yml` wires together:
+```bash
+docker-compose up --build -d
+```
 
-1. PostgreSQL for persistent storage.
-2. Redis for coordination and cache state.
-3. The backend service.
-4. The frontend service.
+This commands compiles the application packages in a multi-stage Docker build, mapping these external ports:
+*   Frontend: `http://localhost:80`
+*   Backend: `http://localhost:8080`
+*   PostgreSQL DB: `http://localhost:5432`
+*   Redis Cache: `http://localhost:6379`
 
-This setup is useful when you want a reproducible environment that mirrors the production topology more closely than a manually started local stack.
+---
 
-### Docker Defaults
+## Frontend Demo Mode Sandbox
 
-The compose file currently provisions default credentials and service names suitable for local development only. Those defaults should be replaced with secure values for any non-local environment.
+If you want to evaluate the React interface without running databases, Maven, or Redis locally, you can use the built-in **Demo Mode**.
 
-## Demo Mode
+1.  Navigate to the web interface: [http://localhost:5173/login](http://localhost:5173/login).
+2.  Use the helper login options to populate these credentials:
+    *   **Email**: `demo@cronix.dev`
+    *   **Password**: `demo1234`
+3.  Submit. The frontend will intercept requests and simulate background operations, queue metrics, and worker graphs entirely inside your browser memory.
 
-The frontend includes a standalone demo mode so the dashboard can be explored without connecting to a fully populated backend or database.
+---
 
-### How to Use Demo Mode
+## Troubleshooting Guide
 
-1. Open the login page at `http://localhost:5173/login`.
-2. Use the demo account helper to fill the form.
-3. Submit the preloaded credentials:
-   - Email: `demo@cronix.dev`
-   - Password: `demo1234`
-4. The dashboard loads representative scheduler data, charts, queue state, and worker metrics.
+### 1. Database Connection Failures
+*   **Symptom**: Backend boot exits with `Connection refused` exceptions.
+*   **Check**: Make sure your PostgreSQL service is online. Verify the database connection properties in [application.yml](file:///c:/Users/aayus/Desktop/Cronix/backend/src/main/resources/application.yml) or ensure your environment variables are configured correctly.
 
-Demo mode is useful for presentations, UI review, and quick onboarding because it removes the need to seed a full backend environment before inspecting the product.
+### 2. Redis Connection Refused
+*   **Symptom**: Scheduled jobs load properly but real-time telemetry elements fail.
+*   **Check**: Verify Redis is active on port `6379`. You can check connection states by running `redis-cli ping`.
 
-## Configuration Notes
+### 3. Port Configuration Conflicts
+*   **Symptom**: Boot fails with `Address already in use` error messages.
+*   **Resolution**: Kill conflicting processes or alter binding ports in [application.yml](file:///c:/Users/aayus/Desktop/Cronix/backend/src/main/resources/application.yml):
+    ```yml
+    server:
+      port: 9090 # Change server port if 8080 is locked
+    ```
 
-The backend and frontend expect environment-specific configuration for database access, Redis access, authentication secrets, and runtime URLs. In practice, these values should be managed through environment variables or deployment configuration rather than hard-coded values.
+---
 
-## Troubleshooting
+## License
 
-If the application does not start correctly, the most common checks are:
-
-1. Confirm PostgreSQL is available and the schema has been initialized.
-2. Confirm Redis is running if worker coordination depends on it.
-3. Confirm the backend is listening on the expected port.
-4. Confirm the frontend API base URL matches the backend address.
-5. Verify that Java and Node versions match the project requirements.
-
-If the UI loads but data is missing, the likely causes are a disconnected backend, empty seed data, or a mismatch in API environment settings.
-
-## Summary
-
-Cronix is a distributed scheduler built to show the full lifecycle of background execution: model the workload, route it safely, execute it across worker nodes, and expose the result through a clear operational dashboard. The architecture intentionally keeps the scheduling logic, persistence model, and user interface well separated so the system can scale without becoming difficult to understand.
-#   C r o n i x  
- 
+This project is licensed under the MIT License - see the LICENSE file for details.
