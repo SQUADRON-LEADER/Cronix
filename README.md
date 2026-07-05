@@ -1,5 +1,4 @@
 # Cronix Distributed Job Scheduler
-
 [![Java 23](https://img.shields.io/badge/Java-23-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](#)
 [![Spring Boot 3.3.1](https://img.shields.io/badge/Spring_Boot-3.3.1-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)](#)
 [![React 18.3.1](https://img.shields.io/badge/React-18.3.1-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](#)
